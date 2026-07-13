@@ -1,0 +1,14 @@
+fund_id,asset_id,asset_name,weight,sector,region,asset_class
+FND_CORE,AST_ALPHA,Alpha Components,0.28,Technology,North America,Equity
+FND_CORE,AST_BETA,Beta Stores,0.22,Consumer,North America,Equity
+FND_CORE,AST_GAMMA,Gamma Health,0.18,Health Care,North America,Equity
+FND_CORE,AST_DELTA,Delta Industrials,0.17,Industrials,Europe,Equity
+FND_CORE,AST_CASH,Cash Sleeve,0.15,Cash,Global,Cash
+FND_GLOBAL,AST_ALPHA,Alpha Components,0.16,Technology,North America,Equity
+FND_GLOBAL,AST_EPSILON,Epsilon Semiconductors,0.24,Technology,Asia Pacific,Equity
+FND_GLOBAL,AST_ZETA,Zeta Renewables,0.20,Utilities,Europe,Equity
+FND_GLOBAL,AST_ETA,Eta Payments,0.18,Financials,North America,Equity
+FND_GLOBAL,AST_THETA,Theta Logistics,0.22,Industrials,Asia Pacific,Equity
+FND_BOND,AST_TBILL,Treasury Bill Basket,0.40,Government,North America,Fixed Income
+FND_BOND,AST_IG,Investment Grade Credit Basket,0.35,Credit,North America,Fixed Income
+FND_BOND,AST_CASH,Cash Sleeve,0.25,Cash,Global,Cash

@@ -1,0 +1,92 @@
+{
+  "asset_count": 11,
+  "fund_count": 3,
+  "portfolio_id": "2026Q2_SAMPLE",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "tool": "fund-exposure-lookthrough",
+  "top_assets": [
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_ALPHA",
+      "asset_name": "Alpha Components",
+      "exposure": 0.182,
+      "region": "North America",
+      "sector": "Technology"
+    },
+    {
+      "asset_class": "Cash",
+      "asset_id": "AST_CASH",
+      "asset_name": "Cash Sleeve",
+      "exposure": 0.1175,
+      "region": "Global",
+      "sector": "Cash"
+    },
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_BETA",
+      "asset_name": "Beta Stores",
+      "exposure": 0.099,
+      "region": "North America",
+      "sector": "Consumer"
+    },
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_EPSILON",
+      "asset_name": "Epsilon Semiconductors",
+      "exposure": 0.084,
+      "region": "Asia Pacific",
+      "sector": "Technology"
+    },
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_GAMMA",
+      "asset_name": "Gamma Health",
+      "exposure": 0.081,
+      "region": "North America",
+      "sector": "Health Care"
+    },
+    {
+      "asset_class": "Fixed Income",
+      "asset_id": "AST_TBILL",
+      "asset_name": "Treasury Bill Basket",
+      "exposure": 0.08,
+      "region": "North America",
+      "sector": "Government"
+    },
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_THETA",
+      "asset_name": "Theta Logistics",
+      "exposure": 0.077,
+      "region": "Asia Pacific",
+      "sector": "Industrials"
+    },
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_DELTA",
+      "asset_name": "Delta Industrials",
+      "exposure": 0.0765,
+      "region": "Europe",
+      "sector": "Industrials"
+    },
+    {
+      "asset_class": "Fixed Income",
+      "asset_id": "AST_IG",
+      "asset_name": "Investment Grade Credit Basket",
+      "exposure": 0.07,
+      "region": "North America",
+      "sector": "Credit"
+    },
+    {
+      "asset_class": "Equity",
+      "asset_id": "AST_ZETA",
+      "asset_name": "Zeta Renewables",
+      "exposure": 0.07,
+      "region": "Europe",
+      "sector": "Utilities"
+    }
+  ],
+  "total_exposure": 1.0,
+  "version": "0.1.0",
+  "warnings": []
+}

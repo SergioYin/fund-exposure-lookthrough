@@ -1,0 +1,38 @@
+{
+  "capabilities": [
+    {
+      "name": "Source package",
+      "status": "ready"
+    },
+    {
+      "name": "CLI routes",
+      "status": "ready"
+    },
+    {
+      "name": "Tests",
+      "status": "ready"
+    },
+    {
+      "name": "Bundled examples",
+      "status": "ready"
+    },
+    {
+      "name": "Deterministic demo artifacts",
+      "status": "ready"
+    },
+    {
+      "name": "Public documentation",
+      "status": "ready"
+    },
+    {
+      "name": "No GitHub workflows",
+      "status": "ready"
+    },
+    {
+      "name": "Zero runtime dependencies",
+      "status": "ready"
+    }
+  ],
+  "project": "fund-exposure-lookthrough",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data."
+}
