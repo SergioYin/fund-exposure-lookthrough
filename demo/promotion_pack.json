@@ -1,0 +1,70 @@
+{
+  "boundaries": [
+    "zero runtime dependencies",
+    "no workflow automation",
+    "no live data fetching",
+    "no broker connectivity",
+    "no recommendations, target allocations, trades, return predictions, or personalized financial advice"
+  ],
+  "evidence": [
+    {
+      "exists": true,
+      "label": "public-readiness",
+      "path": "demo/public_readiness.md",
+      "sha256": "22ce114567f3344635894eb952681d7d1c758837e404991804de298c5f42db0d"
+    },
+    {
+      "exists": true,
+      "label": "public-readiness-json",
+      "path": "demo/public_readiness.json",
+      "sha256": "1dfc7069eb2d18a3bc6cea58142b955cc9d04719def2392f8768eb22a0bb018c"
+    },
+    {
+      "exists": true,
+      "label": "landing-page",
+      "path": "demo/index.html",
+      "sha256": "33b02aa4bd3ab1536aac180404d46e4bf6a2266a21ee4cfdd78c0dd870f055f5"
+    },
+    {
+      "exists": true,
+      "label": "visual-receipt",
+      "path": "demo/visual_receipt.svg",
+      "sha256": "7d1129a1a1fced267b17323baa4fc790bb40ca467adf5e2b4342def49914bc10"
+    },
+    {
+      "exists": true,
+      "label": "command-matrix",
+      "path": "demo/command_matrix.md",
+      "sha256": "7be3e24fde6f2ecbde9cae2e3f6007adeaa03432fa371bd7fe9ff0564a89a9c7"
+    },
+    {
+      "exists": true,
+      "label": "command-matrix-json",
+      "path": "demo/command_matrix.json",
+      "sha256": "bd104384894eadb15d06e1373419961347129cae3467ae11ff77bc795e33ed6d"
+    },
+    {
+      "exists": true,
+      "label": "reviewer-scorecard",
+      "path": "demo/reviewer_scorecard.md",
+      "sha256": "d22fdfb70563bda0cd76783c34bd886d59c2194c850037c4eaf15a99256903b7"
+    },
+    {
+      "exists": true,
+      "label": "reviewer-scorecard-json",
+      "path": "demo/reviewer_scorecard.json",
+      "sha256": "da6eb6778a47aeca63bbc25deb51a5cd607a34b254dc9e5faa7eb5b59f1f2ab4"
+    }
+  ],
+  "ok": true,
+  "project": "fund-exposure-lookthrough",
+  "purpose": "promotion evidence pack for static public review",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "summary": {
+    "commands": 34,
+    "max_score": 12,
+    "readiness_steps": 10,
+    "score": 12
+  },
+  "version": "1.0.1"
+}

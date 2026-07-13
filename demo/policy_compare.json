@@ -1,0 +1,63 @@
+{
+  "added_flags": [],
+  "left": {
+    "flag_count": 1,
+    "portfolio_id": "2026Q2_SAMPLE",
+    "profile": "balanced",
+    "source": "demo/exposure_packet.json",
+    "status": "review"
+  },
+  "project": "fund-exposure-lookthrough",
+  "removed_flags": [],
+  "right": {
+    "flag_count": 1,
+    "portfolio_id": "2026Q2_SAMPLE",
+    "profile": "balanced",
+    "source": "demo/exposure_packet.json",
+    "status": "review"
+  },
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "shared_flags": [
+    {
+      "asset_id": "AST_ALPHA",
+      "dimension": "asset",
+      "exposure": 0.182,
+      "margin_to_threshold": -0.032,
+      "name": "Alpha Components",
+      "over_threshold": true,
+      "threshold": 0.15
+    }
+  ],
+  "summary": {
+    "added_flags": 0,
+    "removed_flags": 0,
+    "shared_flags": 1
+  },
+  "threshold_deltas": [
+    {
+      "change": 0.0,
+      "dimension": "asset",
+      "left": 0.15,
+      "right": 0.15
+    },
+    {
+      "change": 0.0,
+      "dimension": "asset_class",
+      "left": 0.9,
+      "right": 0.9
+    },
+    {
+      "change": 0.0,
+      "dimension": "region",
+      "left": 0.7,
+      "right": 0.7
+    },
+    {
+      "change": 0.0,
+      "dimension": "sector",
+      "left": 0.45,
+      "right": 0.45
+    }
+  ],
+  "version": "1.0.1"
+}

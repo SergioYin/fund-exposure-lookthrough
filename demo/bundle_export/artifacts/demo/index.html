@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>fund-exposure-lookthrough public walkthrough</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; color: #1f2933; background: #f7f8fa; }
+    main { max-width: 1060px; margin: 0 auto; padding: 2rem; }
+    header { border-bottom: 1px solid #cfd6e0; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+    h2 { margin-top: 1.8rem; }
+    .notice { border-left: 4px solid #596579; padding-left: 0.75rem; }
+    ul { padding-left: 1.2rem; }
+    li { margin: 0.45rem 0; }
+    table { border-collapse: collapse; width: 100%; background: white; border: 1px solid #d9dee7; }
+    th, td { border-bottom: 1px solid #d9dee7; padding: 0.55rem; text-align: left; vertical-align: top; }
+    code { font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>fund-exposure-lookthrough</h1>
+    <p>Version 1.0.1 public landing and walkthrough index for deterministic static review.</p>
+    <p class="notice">Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.</p>
+  </header>
+  <section>
+    <h2>Start Here</h2>
+    <ul><li><a href="public_readiness.md">First-10-minute walkthrough</a></li>
+<li><a href="promotion_pack.md">Promotion pack</a></li>
+<li><a href="adoption_notes.md">Adoption notes</a></li>
+<li><a href="static_dashboard.html">Static dashboard</a></li>
+<li><a href="exposure_packet.md">Exposure packet</a></li>
+<li><a href="policy_profile.md">Policy profile</a></li>
+<li><a href="policy_gallery.md">Policy gallery</a></li>
+<li><a href="case_gallery.md">Case gallery</a></li>
+<li><a href="visual_receipt.svg">Visual receipt</a></li>
+<li><a href="release_compare.md">Release compare</a></li>
+<li><a href="command_matrix.md">Command matrix</a></li>
+<li><a href="cli_help.md">CLI help export</a></li>
+<li><a href="bundle_export/manifest.md">Portable bundle manifest</a></li></ul>
+  </section>
+  <section>
+    <h2>Safety Boundaries</h2>
+    <ul><li>No runtime dependencies.</li>
+<li>No workflow automation.</li>
+<li>No live data fetching.</li>
+<li>No broker or trading-system connectivity.</li>
+<li>No recommendations, target allocations, trades, return predictions, or personalized financial advice.</li>
+<li>Only user-supplied static fixture data is used.</li></ul>
+  </section>
+  <section>
+    <h2>Command Matrix</h2>
+    <table><thead><tr><th>Command</th><th>Default outputs</th><th>Exit-code behavior</th></tr></thead><tbody><tr><td><code>build-packet</code></td><td>demo/exposure_packet.md, demo/exposure_packet.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>policy-profile</code></td><td>demo/policy_profile.md, demo/policy_profile.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>policy-compare</code></td><td>demo/policy_compare.md, demo/policy_compare.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>policy-gallery</code></td><td>demo/policy_gallery.md, demo/policy_gallery.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>compare-history</code></td><td>demo/history_comparison.md, demo/history_comparison.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>overlap-matrix</code></td><td>demo/overlap_matrix.md, demo/overlap_matrix.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>review-ledger</code></td><td>demo/review_ledger.md, demo/review_ledger.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>fixture-doctor</code></td><td>demo/fixture_doctor.md, demo/fixture_doctor.json</td><td>0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors</td></tr>
+<tr><td><code>static-dashboard</code></td><td>demo/static_dashboard.html</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>case-gallery</code></td><td>demo/case_gallery.md, demo/case_gallery.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>visual-receipt</code></td><td>demo/visual_receipt.svg</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>reviewer-scorecard</code></td><td>demo/reviewer_scorecard.md, demo/reviewer_scorecard.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>selfcheck</code></td><td>stdout JSON</td><td>0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors</td></tr>
+<tr><td><code>public-scan</code></td><td>stdout JSON</td><td>0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors</td></tr>
+<tr><td><code>release-manifest</code></td><td>demo/release_manifest.md, demo/release_manifest.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>release-compare</code></td><td>demo/release_compare.md, demo/release_compare.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>maturity-report</code></td><td>demo/maturity_report.md, demo/maturity_report.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>bundle-export</code></td><td>demo/bundle_export/manifest.md, demo/bundle_export/manifest.json, demo/bundle_export/artifacts/</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>asset-health</code></td><td>demo/asset_health.md, demo/asset_health.json</td><td>0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors</td></tr>
+<tr><td><code>artifact-catalog</code></td><td>demo/artifact_catalog.md, demo/artifact_catalog.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>command-matrix</code></td><td>demo/command_matrix.md, demo/command_matrix.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>release-checklist</code></td><td>demo/release_checklist.md, demo/release_checklist.json</td><td>0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors</td></tr>
+<tr><td><code>final-handoff</code></td><td>demo/final_handoff.md, demo/final_handoff.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>maintainer-note</code></td><td>demo/maintainer_note.md, demo/maintainer_note.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>final-qa</code></td><td>demo/final_qa.md, demo/final_qa.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>readme-snippet</code></td><td>demo/readme_snippet.md</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>public-readiness</code></td><td>demo/public_readiness.md, demo/public_readiness.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>promotion-pack</code></td><td>demo/promotion_pack.md, demo/promotion_pack.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>adoption-notes</code></td><td>demo/adoption_notes.md, demo/adoption_notes.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>landing-page</code></td><td>demo/index.html</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>docs-export</code></td><td>demo/cli_help.md, demo/cli_help.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>snapshot-ledger</code></td><td>demo/snapshot_ledger.md, demo/snapshot_ledger.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>snapshot-compare</code></td><td>demo/snapshot_compare.md, demo/snapshot_compare.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr>
+<tr><td><code>review-queue</code></td><td>demo/review_queue.md, demo/review_queue.json</td><td>0 on success; 2 for file or validation errors handled by the CLI wrapper</td></tr></tbody></table>
+  </section>
+</main>
+</body>
+</html>

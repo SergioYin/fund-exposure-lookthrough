@@ -24,6 +24,7 @@ def packet_payload(portfolio_id: str, holdings: list[Holding], exposures: list[E
         "asset_count": len(exposures),
         "total_exposure": round(sum(row.exposure for row in exposures), 10),
         "warnings": warnings,
+        "assets": [exposure_dict(row) for row in exposures],
         "top_assets": [exposure_dict(row) for row in exposures[:10]],
     }
 

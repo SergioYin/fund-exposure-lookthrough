@@ -1,0 +1,708 @@
+{
+  "command_count": 34,
+  "commands": [
+    {
+      "full_help": "usage: fund-exposure-lookthrough adoption-notes [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough adoption-notes [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "adoption-notes",
+        "outputs": [
+          "demo/adoption_notes.md",
+          "demo/adoption_notes.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli adoption-notes --root ."
+      },
+      "name": "adoption-notes",
+      "usage": "usage: fund-exposure-lookthrough adoption-notes [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough artifact-catalog [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough artifact-catalog [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "artifact-catalog",
+        "outputs": [
+          "demo/artifact_catalog.md",
+          "demo/artifact_catalog.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli artifact-catalog --root ."
+      },
+      "name": "artifact-catalog",
+      "usage": "usage: fund-exposure-lookthrough artifact-catalog [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough asset-health [-h] [--root ROOT]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough asset-health [-h] [--root ROOT]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "asset-health",
+        "outputs": [
+          "demo/asset_health.md",
+          "demo/asset_health.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli asset-health --root ."
+      },
+      "name": "asset-health",
+      "usage": "usage: fund-exposure-lookthrough asset-health [-h] [--root ROOT]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough build-packet [-h] [--root ROOT]\n                                              [--portfolio PORTFOLIO]\n                                              [--constituents CONSTITUENTS]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --portfolio PORTFOLIO\n  --constituents CONSTITUENTS\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough build-packet [-h] [--root ROOT]\n                                              [--portfolio PORTFOLIO]\n                                              [--constituents CONSTITUENTS]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--portfolio",
+          "--constituents",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "build-packet",
+        "outputs": [
+          "demo/exposure_packet.md",
+          "demo/exposure_packet.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli build-packet --root ."
+      },
+      "name": "build-packet",
+      "usage": "usage: fund-exposure-lookthrough build-packet [-h] [--root ROOT]\n                                              [--portfolio PORTFOLIO]\n                                              [--constituents CONSTITUENTS]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough bundle-export [-h] [--root ROOT]\n                                               [--out-dir OUT_DIR]\n\noptions:\n  -h, --help         show this help message and exit\n  --root ROOT\n  --out-dir OUT_DIR\n",
+      "help": "usage: fund-exposure-lookthrough bundle-export [-h] [--root ROOT]\n                                               [--out-dir OUT_DIR]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-dir"
+        ],
+        "name": "bundle-export",
+        "outputs": [
+          "demo/bundle_export/manifest.md",
+          "demo/bundle_export/manifest.json",
+          "demo/bundle_export/artifacts/"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root ."
+      },
+      "name": "bundle-export",
+      "usage": "usage: fund-exposure-lookthrough bundle-export [-h] [--root ROOT]\n                                               [--out-dir OUT_DIR]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough case-gallery [-h] [--root ROOT]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough case-gallery [-h] [--root ROOT]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "case-gallery",
+        "outputs": [
+          "demo/case_gallery.md",
+          "demo/case_gallery.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli case-gallery --root ."
+      },
+      "name": "case-gallery",
+      "usage": "usage: fund-exposure-lookthrough case-gallery [-h] [--root ROOT]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough command-matrix [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough command-matrix [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "command-matrix",
+        "outputs": [
+          "demo/command_matrix.md",
+          "demo/command_matrix.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli command-matrix --root ."
+      },
+      "name": "command-matrix",
+      "usage": "usage: fund-exposure-lookthrough command-matrix [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough compare-history [-h] [--root ROOT]\n                                                 [--current CURRENT]\n                                                 [--prior PRIOR]\n                                                 [--constituents CONSTITUENTS]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --current CURRENT\n  --prior PRIOR\n  --constituents CONSTITUENTS\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough compare-history [-h] [--root ROOT]\n                                                 [--current CURRENT]\n                                                 [--prior PRIOR]\n                                                 [--constituents CONSTITUENTS]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--current",
+          "--prior",
+          "--constituents",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "compare-history",
+        "outputs": [
+          "demo/history_comparison.md",
+          "demo/history_comparison.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli compare-history --root ."
+      },
+      "name": "compare-history",
+      "usage": "usage: fund-exposure-lookthrough compare-history [-h] [--root ROOT]\n                                                 [--current CURRENT]\n                                                 [--prior PRIOR]\n                                                 [--constituents CONSTITUENTS]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough docs-export [-h] [--root ROOT]\n                                             [--out-md OUT_MD]\n                                             [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough docs-export [-h] [--root ROOT]\n                                             [--out-md OUT_MD]\n                                             [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "docs-export",
+        "outputs": [
+          "demo/cli_help.md",
+          "demo/cli_help.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli docs-export --root ."
+      },
+      "name": "docs-export",
+      "usage": "usage: fund-exposure-lookthrough docs-export [-h] [--root ROOT]\n                                             [--out-md OUT_MD]\n                                             [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough final-handoff [-h] [--root ROOT]\n                                               [--repo-url REPO_URL]\n                                               [--release-version RELEASE_VERSION]\n                                               [--out-md OUT_MD]\n                                               [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --repo-url REPO_URL\n  --release-version RELEASE_VERSION\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough final-handoff [-h] [--root ROOT]\n                                               [--repo-url REPO_URL]\n                                               [--release-version RELEASE_VERSION]\n                                               [--out-md OUT_MD]\n                                               [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--repo-url",
+          "--release-version",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "final-handoff",
+        "outputs": [
+          "demo/final_handoff.md",
+          "demo/final_handoff.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli final-handoff --root . --repo-url REPO_URL_PLACEHOLDER"
+      },
+      "name": "final-handoff",
+      "usage": "usage: fund-exposure-lookthrough final-handoff [-h] [--root ROOT]\n                                               [--repo-url REPO_URL]\n                                               [--release-version RELEASE_VERSION]\n                                               [--out-md OUT_MD]\n                                               [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough final-qa [-h] [--root ROOT]\n                                          [--baseline BASELINE]\n                                          [--release-version RELEASE_VERSION]\n                                          [--out-md OUT_MD]\n                                          [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --baseline BASELINE\n  --release-version RELEASE_VERSION\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough final-qa [-h] [--root ROOT]\n                                          [--baseline BASELINE]\n                                          [--release-version RELEASE_VERSION]\n                                          [--out-md OUT_MD]\n                                          [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--baseline",
+          "--release-version",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "final-qa",
+        "outputs": [
+          "demo/final_qa.md",
+          "demo/final_qa.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli final-qa --root . --baseline v0.5.0"
+      },
+      "name": "final-qa",
+      "usage": "usage: fund-exposure-lookthrough final-qa [-h] [--root ROOT]\n                                          [--baseline BASELINE]\n                                          [--release-version RELEASE_VERSION]\n                                          [--out-md OUT_MD]\n                                          [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough fixture-doctor [-h] [--root ROOT]\n                                                [--portfolio PORTFOLIO]\n                                                [--constituents CONSTITUENTS]\n                                                [--as-of AS_OF]\n                                                [--max-source-age-days MAX_SOURCE_AGE_DAYS]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --portfolio PORTFOLIO\n  --constituents CONSTITUENTS\n  --as-of AS_OF         Deterministic ISO date used for source metadata\n                        freshness checks.\n  --max-source-age-days MAX_SOURCE_AGE_DAYS\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough fixture-doctor [-h] [--root ROOT]\n                                                [--portfolio PORTFOLIO]\n                                                [--constituents CONSTITUENTS]\n                                                [--as-of AS_OF]\n                                                [--max-source-age-days MAX_SOURCE_AGE_DAYS]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors",
+        "inputs": [
+          "--root",
+          "--portfolio",
+          "--constituents",
+          "--as-of",
+          "--max-source-age-days",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "fixture-doctor",
+        "outputs": [
+          "demo/fixture_doctor.md",
+          "demo/fixture_doctor.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli fixture-doctor --root ."
+      },
+      "name": "fixture-doctor",
+      "usage": "usage: fund-exposure-lookthrough fixture-doctor [-h] [--root ROOT]\n                                                [--portfolio PORTFOLIO]\n                                                [--constituents CONSTITUENTS]\n                                                [--as-of AS_OF]\n                                                [--max-source-age-days MAX_SOURCE_AGE_DAYS]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough landing-page [-h] [--root ROOT]\n                                              [--out-html OUT_HTML]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-html OUT_HTML\n",
+      "help": "usage: fund-exposure-lookthrough landing-page [-h] [--root ROOT]\n                                              [--out-html OUT_HTML]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-html"
+        ],
+        "name": "landing-page",
+        "outputs": [
+          "demo/index.html"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli landing-page --root ."
+      },
+      "name": "landing-page",
+      "usage": "usage: fund-exposure-lookthrough landing-page [-h] [--root ROOT]\n                                              [--out-html OUT_HTML]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough maintainer-note [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough maintainer-note [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "maintainer-note",
+        "outputs": [
+          "demo/maintainer_note.md",
+          "demo/maintainer_note.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli maintainer-note --root ."
+      },
+      "name": "maintainer-note",
+      "usage": "usage: fund-exposure-lookthrough maintainer-note [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough maturity-report [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough maturity-report [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "maturity-report",
+        "outputs": [
+          "demo/maturity_report.md",
+          "demo/maturity_report.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli maturity-report --root ."
+      },
+      "name": "maturity-report",
+      "usage": "usage: fund-exposure-lookthrough maturity-report [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough overlap-matrix [-h] [--root ROOT]\n                                                [--portfolio PORTFOLIO]\n                                                [--constituents CONSTITUENTS]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --portfolio PORTFOLIO\n  --constituents CONSTITUENTS\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough overlap-matrix [-h] [--root ROOT]\n                                                [--portfolio PORTFOLIO]\n                                                [--constituents CONSTITUENTS]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--portfolio",
+          "--constituents",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "overlap-matrix",
+        "outputs": [
+          "demo/overlap_matrix.md",
+          "demo/overlap_matrix.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli overlap-matrix --root ."
+      },
+      "name": "overlap-matrix",
+      "usage": "usage: fund-exposure-lookthrough overlap-matrix [-h] [--root ROOT]\n                                                [--portfolio PORTFOLIO]\n                                                [--constituents CONSTITUENTS]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough policy-compare [-h] [--root ROOT]\n                                                [--left LEFT] [--right RIGHT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --left LEFT\n  --right RIGHT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough policy-compare [-h] [--root ROOT]\n                                                [--left LEFT] [--right RIGHT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--left",
+          "--right",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "policy-compare",
+        "outputs": [
+          "demo/policy_compare.md",
+          "demo/policy_compare.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-compare --root . --left demo/policy_profile.json --right demo/policy_profile.json"
+      },
+      "name": "policy-compare",
+      "usage": "usage: fund-exposure-lookthrough policy-compare [-h] [--root ROOT]\n                                                [--left LEFT] [--right RIGHT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough policy-gallery [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough policy-gallery [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "policy-gallery",
+        "outputs": [
+          "demo/policy_gallery.md",
+          "demo/policy_gallery.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-gallery --root ."
+      },
+      "name": "policy-gallery",
+      "usage": "usage: fund-exposure-lookthrough policy-gallery [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough policy-profile [-h] [--root ROOT]\n                                                [--profile {balanced,concentrated,conservative}]\n                                                [--exposure EXPOSURE]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --profile {balanced,concentrated,conservative}\n  --exposure EXPOSURE\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough policy-profile [-h] [--root ROOT]\n                                                [--profile {balanced,concentrated,conservative}]\n                                                [--exposure EXPOSURE]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--profile",
+          "--exposure",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "policy-profile",
+        "outputs": [
+          "demo/policy_profile.md",
+          "demo/policy_profile.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-profile --root ."
+      },
+      "name": "policy-profile",
+      "usage": "usage: fund-exposure-lookthrough policy-profile [-h] [--root ROOT]\n                                                [--profile {balanced,concentrated,conservative}]\n                                                [--exposure EXPOSURE]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough promotion-pack [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough promotion-pack [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "promotion-pack",
+        "outputs": [
+          "demo/promotion_pack.md",
+          "demo/promotion_pack.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli promotion-pack --root ."
+      },
+      "name": "promotion-pack",
+      "usage": "usage: fund-exposure-lookthrough promotion-pack [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n                                                [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough public-readiness [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough public-readiness [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "public-readiness",
+        "outputs": [
+          "demo/public_readiness.md",
+          "demo/public_readiness.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli public-readiness --root ."
+      },
+      "name": "public-readiness",
+      "usage": "usage: fund-exposure-lookthrough public-readiness [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough public-scan [-h] [--root ROOT]\n\noptions:\n  -h, --help   show this help message and exit\n  --root ROOT\n",
+      "help": "usage: fund-exposure-lookthrough public-scan [-h] [--root ROOT]",
+      "metadata": {
+        "exit_codes": "0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors",
+        "inputs": [
+          "--root"
+        ],
+        "name": "public-scan",
+        "outputs": [
+          "stdout JSON"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root ."
+      },
+      "name": "public-scan",
+      "usage": "usage: fund-exposure-lookthrough public-scan [-h] [--root ROOT]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough readme-snippet [-h] [--root ROOT]\n                                                [--out-md OUT_MD]\n\noptions:\n  -h, --help       show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n",
+      "help": "usage: fund-exposure-lookthrough readme-snippet [-h] [--root ROOT]\n                                                [--out-md OUT_MD]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md"
+        ],
+        "name": "readme-snippet",
+        "outputs": [
+          "demo/readme_snippet.md"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli readme-snippet --root ."
+      },
+      "name": "readme-snippet",
+      "usage": "usage: fund-exposure-lookthrough readme-snippet [-h] [--root ROOT]\n                                                [--out-md OUT_MD]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough release-checklist [-h] [--root ROOT]\n                                                   [--out-md OUT_MD]\n                                                   [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough release-checklist [-h] [--root ROOT]\n                                                   [--out-md OUT_MD]\n                                                   [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "release-checklist",
+        "outputs": [
+          "demo/release_checklist.md",
+          "demo/release_checklist.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-checklist --root ."
+      },
+      "name": "release-checklist",
+      "usage": "usage: fund-exposure-lookthrough release-checklist [-h] [--root ROOT]\n                                                   [--out-md OUT_MD]\n                                                   [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough release-compare [-h] [--root ROOT]\n                                                 [--left LEFT] [--right RIGHT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --left LEFT\n  --right RIGHT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough release-compare [-h] [--root ROOT]\n                                                 [--left LEFT] [--right RIGHT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--left",
+          "--right",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "release-compare",
+        "outputs": [
+          "demo/release_compare.md",
+          "demo/release_compare.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-compare --root . --left demo/release_manifest.json --right demo/artifact_catalog.json"
+      },
+      "name": "release-compare",
+      "usage": "usage: fund-exposure-lookthrough release-compare [-h] [--root ROOT]\n                                                 [--left LEFT] [--right RIGHT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough release-manifest [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough release-manifest [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "release-manifest",
+        "outputs": [
+          "demo/release_manifest.md",
+          "demo/release_manifest.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-manifest --root ."
+      },
+      "name": "release-manifest",
+      "usage": "usage: fund-exposure-lookthrough release-manifest [-h] [--root ROOT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough review-ledger [-h] [--root ROOT]\n                                               [--portfolio PORTFOLIO]\n                                               [--constituents CONSTITUENTS]\n                                               [--threshold THRESHOLD]\n                                               [--out-md OUT_MD]\n                                               [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --portfolio PORTFOLIO\n  --constituents CONSTITUENTS\n  --threshold THRESHOLD\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough review-ledger [-h] [--root ROOT]\n                                               [--portfolio PORTFOLIO]\n                                               [--constituents CONSTITUENTS]\n                                               [--threshold THRESHOLD]\n                                               [--out-md OUT_MD]\n                                               [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--portfolio",
+          "--constituents",
+          "--threshold",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "review-ledger",
+        "outputs": [
+          "demo/review_ledger.md",
+          "demo/review_ledger.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli review-ledger --root ."
+      },
+      "name": "review-ledger",
+      "usage": "usage: fund-exposure-lookthrough review-ledger [-h] [--root ROOT]\n                                               [--portfolio PORTFOLIO]\n                                               [--constituents CONSTITUENTS]\n                                               [--threshold THRESHOLD]\n                                               [--out-md OUT_MD]\n                                               [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough review-queue [-h] [--root ROOT]\n                                              [--exposure EXPOSURE]\n                                              [--fixture-doctor FIXTURE_DOCTOR]\n                                              [--asset-health ASSET_HEALTH]\n                                              [--release-checklist RELEASE_CHECKLIST]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --exposure EXPOSURE\n  --fixture-doctor FIXTURE_DOCTOR\n  --asset-health ASSET_HEALTH\n  --release-checklist RELEASE_CHECKLIST\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough review-queue [-h] [--root ROOT]\n                                              [--exposure EXPOSURE]\n                                              [--fixture-doctor FIXTURE_DOCTOR]\n                                              [--asset-health ASSET_HEALTH]\n                                              [--release-checklist RELEASE_CHECKLIST]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--exposure",
+          "--fixture-doctor",
+          "--asset-health",
+          "--release-checklist",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "review-queue",
+        "outputs": [
+          "demo/review_queue.md",
+          "demo/review_queue.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli review-queue --root ."
+      },
+      "name": "review-queue",
+      "usage": "usage: fund-exposure-lookthrough review-queue [-h] [--root ROOT]\n                                              [--exposure EXPOSURE]\n                                              [--fixture-doctor FIXTURE_DOCTOR]\n                                              [--asset-health ASSET_HEALTH]\n                                              [--release-checklist RELEASE_CHECKLIST]\n                                              [--out-md OUT_MD]\n                                              [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough reviewer-scorecard [-h] [--root ROOT]\n                                                    [--out-md OUT_MD]\n                                                    [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough reviewer-scorecard [-h] [--root ROOT]\n                                                    [--out-md OUT_MD]\n                                                    [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "reviewer-scorecard",
+        "outputs": [
+          "demo/reviewer_scorecard.md",
+          "demo/reviewer_scorecard.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli reviewer-scorecard --root ."
+      },
+      "name": "reviewer-scorecard",
+      "usage": "usage: fund-exposure-lookthrough reviewer-scorecard [-h] [--root ROOT]\n                                                    [--out-md OUT_MD]\n                                                    [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough selfcheck [-h] [--root ROOT]\n\noptions:\n  -h, --help   show this help message and exit\n  --root ROOT\n",
+      "help": "usage: fund-exposure-lookthrough selfcheck [-h] [--root ROOT]",
+      "metadata": {
+        "exit_codes": "0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors",
+        "inputs": [
+          "--root"
+        ],
+        "name": "selfcheck",
+        "outputs": [
+          "stdout JSON"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root ."
+      },
+      "name": "selfcheck",
+      "usage": "usage: fund-exposure-lookthrough selfcheck [-h] [--root ROOT]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough snapshot-compare [-h] [--root ROOT]\n                                                  [--left LEFT]\n                                                  [--right RIGHT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --left LEFT\n  --right RIGHT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough snapshot-compare [-h] [--root ROOT]\n                                                  [--left LEFT]\n                                                  [--right RIGHT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--left",
+          "--right",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "snapshot-compare",
+        "outputs": [
+          "demo/snapshot_compare.md",
+          "demo/snapshot_compare.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli snapshot-compare --root . --left demo/snapshot_ledger.json --right demo/snapshot_ledger.json"
+      },
+      "name": "snapshot-compare",
+      "usage": "usage: fund-exposure-lookthrough snapshot-compare [-h] [--root ROOT]\n                                                  [--left LEFT]\n                                                  [--right RIGHT]\n                                                  [--out-md OUT_MD]\n                                                  [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough snapshot-ledger [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --out-md OUT_MD\n  --out-json OUT_JSON\n",
+      "help": "usage: fund-exposure-lookthrough snapshot-ledger [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--out-md",
+          "--out-json"
+        ],
+        "name": "snapshot-ledger",
+        "outputs": [
+          "demo/snapshot_ledger.md",
+          "demo/snapshot_ledger.json"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli snapshot-ledger --root ."
+      },
+      "name": "snapshot-ledger",
+      "usage": "usage: fund-exposure-lookthrough snapshot-ledger [-h] [--root ROOT]\n                                                 [--out-md OUT_MD]\n                                                 [--out-json OUT_JSON]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough static-dashboard [-h] [--root ROOT]\n                                                  [--portfolio PORTFOLIO]\n                                                  [--constituents CONSTITUENTS]\n                                                  [--out-html OUT_HTML]\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --portfolio PORTFOLIO\n  --constituents CONSTITUENTS\n  --out-html OUT_HTML\n",
+      "help": "usage: fund-exposure-lookthrough static-dashboard [-h] [--root ROOT]\n                                                  [--portfolio PORTFOLIO]\n                                                  [--constituents CONSTITUENTS]\n                                                  [--out-html OUT_HTML]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--portfolio",
+          "--constituents",
+          "--out-html"
+        ],
+        "name": "static-dashboard",
+        "outputs": [
+          "demo/static_dashboard.html"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli static-dashboard --root ."
+      },
+      "name": "static-dashboard",
+      "usage": "usage: fund-exposure-lookthrough static-dashboard [-h] [--root ROOT]\n                                                  [--portfolio PORTFOLIO]\n                                                  [--constituents CONSTITUENTS]\n                                                  [--out-html OUT_HTML]"
+    },
+    {
+      "full_help": "usage: fund-exposure-lookthrough visual-receipt [-h] [--root ROOT]\n                                                [--format {svg,html}]\n                                                [--out OUT]\n\noptions:\n  -h, --help           show this help message and exit\n  --root ROOT\n  --format {svg,html}\n  --out OUT\n",
+      "help": "usage: fund-exposure-lookthrough visual-receipt [-h] [--root ROOT]\n                                                [--format {svg,html}]\n                                                [--out OUT]",
+      "metadata": {
+        "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+        "inputs": [
+          "--root",
+          "--format",
+          "--out"
+        ],
+        "name": "visual-receipt",
+        "outputs": [
+          "demo/visual_receipt.svg"
+        ],
+        "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli visual-receipt --root ."
+      },
+      "name": "visual-receipt",
+      "usage": "usage: fund-exposure-lookthrough visual-receipt [-h] [--root ROOT]\n                                                [--format {svg,html}]\n                                                [--out OUT]"
+    }
+  ],
+  "project": "fund-exposure-lookthrough",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "top_level_help": "usage: fund-exposure-lookthrough [-h] [--version]\n                                 {build-packet,compare-history,overlap-matrix,review-ledger,fixture-doctor,static-dashboard,case-gallery,visual-receipt,reviewer-scorecard,selfcheck,public-scan,release-manifest,release-compare,maturity-report,bundle-export,asset-health,artifact-catalog,command-matrix,release-checklist,final-handoff,maintainer-note,final-qa,readme-snippet,public-readiness,promotion-pack,adoption-notes,landing-page,docs-export,snapshot-ledger,snapshot-compare,review-queue,policy-profile,policy-compare,policy-gallery}\n                                 ...\n\nStatic fund exposure look-through research CLI.\n\npositional arguments:\n  {build-packet,compare-history,overlap-matrix,review-ledger,fixture-doctor,static-dashboard,case-gallery,visual-receipt,reviewer-scorecard,selfcheck,public-scan,release-manifest,release-compare,maturity-report,bundle-export,asset-health,artifact-catalog,command-matrix,release-checklist,final-handoff,maintainer-note,final-qa,readme-snippet,public-readiness,promotion-pack,adoption-notes,landing-page,docs-export,snapshot-ledger,snapshot-compare,review-queue,policy-profile,policy-compare,policy-gallery}\n    build-packet        Build a Markdown and JSON exposure packet.\n    compare-history     Compare current and prior portfolio exposures.\n    overlap-matrix      Build a fund constituent overlap matrix.\n    review-ledger       Build a static review ledger for input warnings and\n                        concentration flags.\n    fixture-doctor      Validate portfolio and constituent fixtures and write\n                        Markdown/JSON reports.\n    static-dashboard    Build a no-JavaScript static HTML dashboard.\n    case-gallery        Build a deterministic Markdown/JSON public showcase\n                        gallery.\n    visual-receipt      Build a deterministic SVG or HTML receipt for demo\n                        artifact hashes.\n    reviewer-scorecard  Map release evidence to a public maturity rubric.\n    selfcheck           Check package, examples, safety text, and generated\n                        artifacts.\n    public-scan         Scan publishable text files for private names and\n                        credentials.\n    release-manifest    Build a release manifest for public review.\n    release-compare     Compare two release manifests or artifact catalogs.\n    maturity-report     Build a project maturity report.\n    bundle-export       Copy selected demo artifacts into a deterministic\n                        portable directory.\n    asset-health        Summarize command coverage, artifact presence, package\n                        data, and safety boundaries.\n    artifact-catalog    Catalog demo artifacts with type, size, SHA-256, and\n                        regeneration command.\n    command-matrix      Write a Markdown/JSON matrix of CLI routes, inputs,\n                        outputs, and exit-code behavior.\n    release-checklist   Write a release owner checklist for tests, package,\n                        wheel smoke, public scan, and no-advice boundaries.\n    final-handoff       Write a Markdown/JSON release owner handoff for v1\n                        stabilization.\n    maintainer-note     Write deterministic maintainer evidence and next-step\n                        notes.\n    final-qa            Write deterministic final QA evidence for release\n                        review.\n    readme-snippet      Generate a concise Markdown quickstart and demo\n                        snippet from current artifacts.\n    public-readiness    Write a first-10-minute cold-user walkthrough in\n                        Markdown and JSON.\n    promotion-pack      Bundle public-readiness, landing, receipt, command\n                        matrix, and scorecard evidence.\n    adoption-notes      Write agent-facing workflow notes for using outputs in\n                        a thesis ledger.\n    landing-page        Write a no-JavaScript static HTML public landing page\n                        linking demo artifacts.\n    docs-export         Export CLI help and command metadata into\n                        deterministic Markdown and JSON.\n    snapshot-ledger     Append a deterministic artifact snapshot to a\n                        JSON/Markdown ledger.\n    snapshot-compare    Compare two deterministic snapshot JSON files.\n    review-queue        Derive prioritized follow-up questions from generated\n                        review artifacts.\n    policy-profile      Apply a bundled research-only policy profile to an\n                        exposure artifact.\n    policy-compare      Compare two policy-profile JSON outputs.\n    policy-gallery      Build Markdown/JSON policy examples for bundled\n                        fixtures.\n\noptions:\n  -h, --help            show this help message and exit\n  --version             show program's version number and exit\n",
+  "version": "1.0.1"
+}

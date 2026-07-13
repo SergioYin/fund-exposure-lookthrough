@@ -1,0 +1,23 @@
+{
+  "added": [],
+  "changed": [],
+  "left": {
+    "artifact_count": 42,
+    "label": "demo/snapshot_ledger.json",
+    "snapshot_id": "9a5c3c7059a32c1400029c1c88d1004afda74f480b323eefcda3b7e7a76bc699"
+  },
+  "project": "fund-exposure-lookthrough",
+  "removed": [],
+  "right": {
+    "artifact_count": 42,
+    "label": "demo/snapshot_ledger.json",
+    "snapshot_id": "9a5c3c7059a32c1400029c1c88d1004afda74f480b323eefcda3b7e7a76bc699"
+  },
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "summary": {
+    "added": 0,
+    "changed": 0,
+    "removed": 0
+  },
+  "version": "1.0.1"
+}

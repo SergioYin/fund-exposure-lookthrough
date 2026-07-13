@@ -1,0 +1,61 @@
+{
+  "boundaries": [
+    "zero runtime dependencies",
+    "no workflow automation",
+    "no live data fetching",
+    "no broker connectivity",
+    "no financial advice, recommendations, target allocations, trades, or return predictions"
+  ],
+  "evidence": [
+    {
+      "exists": true,
+      "route": "README.md",
+      "sha256": "2680ab2f2576311b8ceca09a681bc74e678a101fa8922b0b9db9673279e066b9"
+    },
+    {
+      "exists": true,
+      "route": "pyproject.toml",
+      "sha256": "1ec4eeb078e9c2d1659dbf215f02b6ce1a29ed20e2e1d3e61d187466d2fb48ef"
+    },
+    {
+      "exists": true,
+      "route": "CHANGELOG.md",
+      "sha256": "bb7b09877840d80e24e8bcf4c47ed2d842c2e45aef1531853794608cc5d69a48"
+    },
+    {
+      "exists": true,
+      "route": "RELEASE_NOTES.md",
+      "sha256": "c4f848f5f345363df58d8fe9a75a413abe97d50e9976553a56e1a50a8c04feea"
+    },
+    {
+      "exists": true,
+      "route": "demo/cli_help.json",
+      "sha256": "a6b127344f6cb5f6b09a07aa51c7d039fc787083400c4238aa9afa2b48774696"
+    },
+    {
+      "exists": true,
+      "route": "demo/command_matrix.json",
+      "sha256": "bd104384894eadb15d06e1373419961347129cae3467ae11ff77bc795e33ed6d"
+    },
+    {
+      "exists": true,
+      "route": "demo/final_handoff.json",
+      "sha256": "1bcdb822080ef3cfa1460d68a2387df3cdc9d1e50b516e687db7eb955dd009b3"
+    }
+  ],
+  "next_steps": [
+    "Regenerate docs-export, command-matrix, release-manifest, artifact-catalog, asset-health, bundle-export, final-handoff, and maintainer-note after any command or artifact change.",
+    "Run the complete verification suite before tagging.",
+    "Keep generated demo files deterministic and exclude bytecode, pytest cache, build, dist, and egg-info outputs from commits."
+  ],
+  "project": "fund-exposure-lookthrough",
+  "purpose": "deterministic maintainer note for docs and packaging evidence",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "verification": [
+    "python -m pytest -q",
+    "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .",
+    "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .",
+    "python -m pip wheel . --no-deps -w dist"
+  ],
+  "version": "1.0.1"
+}

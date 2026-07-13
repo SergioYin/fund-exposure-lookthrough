@@ -1,0 +1,275 @@
+{
+  "asset_count": 11,
+  "checks": [
+    {
+      "asset_id": "AST_ALPHA",
+      "dimension": "asset",
+      "exposure": 0.182,
+      "margin_to_threshold": -0.032,
+      "name": "Alpha Components",
+      "over_threshold": true,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_CASH",
+      "dimension": "asset",
+      "exposure": 0.1175,
+      "margin_to_threshold": 0.0325,
+      "name": "Cash Sleeve",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_BETA",
+      "dimension": "asset",
+      "exposure": 0.099,
+      "margin_to_threshold": 0.051,
+      "name": "Beta Stores",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_EPSILON",
+      "dimension": "asset",
+      "exposure": 0.084,
+      "margin_to_threshold": 0.066,
+      "name": "Epsilon Semiconductors",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_GAMMA",
+      "dimension": "asset",
+      "exposure": 0.081,
+      "margin_to_threshold": 0.069,
+      "name": "Gamma Health",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_TBILL",
+      "dimension": "asset",
+      "exposure": 0.08,
+      "margin_to_threshold": 0.07,
+      "name": "Treasury Bill Basket",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_THETA",
+      "dimension": "asset",
+      "exposure": 0.077,
+      "margin_to_threshold": 0.073,
+      "name": "Theta Logistics",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_DELTA",
+      "dimension": "asset",
+      "exposure": 0.0765,
+      "margin_to_threshold": 0.0735,
+      "name": "Delta Industrials",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_IG",
+      "dimension": "asset",
+      "exposure": 0.07,
+      "margin_to_threshold": 0.08,
+      "name": "Investment Grade Credit Basket",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_ZETA",
+      "dimension": "asset",
+      "exposure": 0.07,
+      "margin_to_threshold": 0.08,
+      "name": "Zeta Renewables",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "AST_ETA",
+      "dimension": "asset",
+      "exposure": 0.063,
+      "margin_to_threshold": 0.087,
+      "name": "Eta Payments",
+      "over_threshold": false,
+      "threshold": 0.15
+    },
+    {
+      "asset_id": "",
+      "dimension": "asset_class",
+      "exposure": 0.7325,
+      "margin_to_threshold": 0.1675,
+      "name": "Equity",
+      "over_threshold": false,
+      "threshold": 0.9
+    },
+    {
+      "asset_id": "",
+      "dimension": "asset_class",
+      "exposure": 0.15,
+      "margin_to_threshold": 0.75,
+      "name": "Fixed Income",
+      "over_threshold": false,
+      "threshold": 0.9
+    },
+    {
+      "asset_id": "",
+      "dimension": "asset_class",
+      "exposure": 0.1175,
+      "margin_to_threshold": 0.7825,
+      "name": "Cash",
+      "over_threshold": false,
+      "threshold": 0.9
+    },
+    {
+      "asset_id": "",
+      "dimension": "region",
+      "exposure": 0.575,
+      "margin_to_threshold": 0.125,
+      "name": "North America",
+      "over_threshold": false,
+      "threshold": 0.7
+    },
+    {
+      "asset_id": "",
+      "dimension": "region",
+      "exposure": 0.161,
+      "margin_to_threshold": 0.539,
+      "name": "Asia Pacific",
+      "over_threshold": false,
+      "threshold": 0.7
+    },
+    {
+      "asset_id": "",
+      "dimension": "region",
+      "exposure": 0.1465,
+      "margin_to_threshold": 0.5535,
+      "name": "Europe",
+      "over_threshold": false,
+      "threshold": 0.7
+    },
+    {
+      "asset_id": "",
+      "dimension": "region",
+      "exposure": 0.1175,
+      "margin_to_threshold": 0.5825,
+      "name": "Global",
+      "over_threshold": false,
+      "threshold": 0.7
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.266,
+      "margin_to_threshold": 0.184,
+      "name": "Technology",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.1535,
+      "margin_to_threshold": 0.2965,
+      "name": "Industrials",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.1175,
+      "margin_to_threshold": 0.3325,
+      "name": "Cash",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.099,
+      "margin_to_threshold": 0.351,
+      "name": "Consumer",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.081,
+      "margin_to_threshold": 0.369,
+      "name": "Health Care",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.08,
+      "margin_to_threshold": 0.37,
+      "name": "Government",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.07,
+      "margin_to_threshold": 0.38,
+      "name": "Credit",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.07,
+      "margin_to_threshold": 0.38,
+      "name": "Utilities",
+      "over_threshold": false,
+      "threshold": 0.45
+    },
+    {
+      "asset_id": "",
+      "dimension": "sector",
+      "exposure": 0.063,
+      "margin_to_threshold": 0.387,
+      "name": "Financials",
+      "over_threshold": false,
+      "threshold": 0.45
+    }
+  ],
+  "flag_count": 1,
+  "flags": [
+    {
+      "asset_id": "AST_ALPHA",
+      "dimension": "asset",
+      "exposure": 0.182,
+      "margin_to_threshold": -0.032,
+      "name": "Alpha Components",
+      "over_threshold": true,
+      "threshold": 0.15
+    }
+  ],
+  "policy_boundary": "Research-only threshold review; not advice and not an allocation recommendation.",
+  "portfolio_id": "2026Q2_SAMPLE",
+  "profile": "balanced",
+  "profile_label": "Balanced research review",
+  "project": "fund-exposure-lookthrough",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "source": "demo/exposure_packet.json",
+  "status": "review",
+  "thresholds": {
+    "asset": 0.15,
+    "asset_class": 0.9,
+    "region": 0.7,
+    "sector": 0.45
+  },
+  "version": "1.0.1"
+}

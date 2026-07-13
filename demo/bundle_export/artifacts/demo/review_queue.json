@@ -1,0 +1,21 @@
+{
+  "project": "fund-exposure-lookthrough",
+  "question_count": 1,
+  "questions": [
+    {
+      "priority": "medium",
+      "question": "Should reviewers add source notes for Alpha Components at 18.20% exposure?",
+      "rank": 1,
+      "source": "demo/exposure_packet.json",
+      "topic": "Exposure review"
+    }
+  ],
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "sources": [
+    "demo/exposure_packet.json",
+    "demo/fixture_doctor.json",
+    "demo/asset_health.json",
+    "demo/release_checklist.json"
+  ],
+  "version": "1.0.1"
+}

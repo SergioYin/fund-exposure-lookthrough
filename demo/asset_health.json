@@ -8,7 +8,37 @@
     {
       "exists": true,
       "route": "demo/exposure_packet.json",
-      "sha256": "62e62ce14588903a48576f4519d40bcd25ca6ce9658f3663d5284806bb6be5c6"
+      "sha256": "62361eb427920547e9339df3dee5d5d439f31bb2affa08b7e3c93ad305c3808a"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_profile.md",
+      "sha256": "35126960d1247e6094a00cf61a21285d6e054a5ced379ef0147bd3a6e23e5d5e"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_profile.json",
+      "sha256": "c88964d8128f48e67b3d9a14c3e0741eb64102edcc02389574deef4f6565c6d9"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_compare.md",
+      "sha256": "c960d06a9ee0985d2c8c3987b76fc0a5718b4a9cc4d041e40c968f08dedcce5e"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_compare.json",
+      "sha256": "287880be15a62a98200710add487db07548a0a47dccebbe0708a42df257eeac3"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_gallery.md",
+      "sha256": "54e10610f7c796a84f27b1c77c042a3079882c972ec3897bb6fd4519e455a90d"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_gallery.json",
+      "sha256": "f3c29a47c209effbf3881346e6120cb92b55f6e159bbf3ece0b3f444e4d63bb0"
     },
     {
       "exists": true,
@@ -48,7 +78,7 @@
     {
       "exists": true,
       "route": "demo/fixture_doctor.json",
-      "sha256": "a2733f75de842478ccb243d0aa25b40e891cbc2a8fbca71850c3af25947e7b92"
+      "sha256": "93000843674e9d26f69fe2c70f95a27ea912aa753fa88d942d74cab1ac28a9a4"
     },
     {
       "exists": true,
@@ -58,12 +88,12 @@
     {
       "exists": true,
       "route": "demo/case_gallery.md",
-      "sha256": "c21a7cc81378079662ccb091836a9b4e7bb01541c11aaf7948f0eae2def5ee10"
+      "sha256": "b2d91f3f9545bbc07c31b450a6bff71adbcd63a1f151810f3cfbbab168762820"
     },
     {
       "exists": true,
       "route": "demo/case_gallery.json",
-      "sha256": "340a8454bf7dc8dc3dce2cace49f6025e1a9eec21eaa6aa081207f86ee4e7d1a"
+      "sha256": "6c8e6fb86ee0e5982e8c7494c1bd7767258a1cff37dde7f504a8e15726a889ff"
     },
     {
       "exists": true,
@@ -73,22 +103,12 @@
     {
       "exists": true,
       "route": "demo/reviewer_scorecard.json",
-      "sha256": "a915183e4ad14346173fa75196fdae1ab2f154a310a5147012c1977587cc71f2"
+      "sha256": "da6eb6778a47aeca63bbc25deb51a5cd607a34b254dc9e5faa7eb5b59f1f2ab4"
     },
     {
       "exists": true,
       "route": "demo/visual_receipt.svg",
-      "sha256": "31370b1d5f5040c10f8f5b2b31c1c64384b3a9e4b56846a5d5310eb1516bcad8"
-    },
-    {
-      "exists": true,
-      "route": "demo/release_manifest.md",
-      "sha256": "77dd5f7020eb59e20d346730827c596c7b975243fb8b32efd1877d666156c02f"
-    },
-    {
-      "exists": true,
-      "route": "demo/release_manifest.json",
-      "sha256": "83df2864ea6002b116c8425699251d7b8e497d18017fd30f519f31338e5fc1f9"
+      "sha256": "7d1129a1a1fced267b17323baa4fc790bb40ca467adf5e2b4342def49914bc10"
     },
     {
       "exists": true,
@@ -103,12 +123,12 @@
     {
       "exists": true,
       "route": "demo/command_matrix.md",
-      "sha256": "350320658575ae039ae27d35b682353b9ce923ee036230b60389ed985a3f546f"
+      "sha256": "7be3e24fde6f2ecbde9cae2e3f6007adeaa03432fa371bd7fe9ff0564a89a9c7"
     },
     {
       "exists": true,
       "route": "demo/command_matrix.json",
-      "sha256": "5be2f085e4e257e2411e775e3f65f695da7d7b7b293fdf88714fbc28668a626c"
+      "sha256": "bd104384894eadb15d06e1373419961347129cae3467ae11ff77bc795e33ed6d"
     },
     {
       "exists": true,
@@ -118,18 +138,60 @@
     {
       "exists": true,
       "route": "demo/release_checklist.json",
-      "sha256": "6c1ab71db57cd04594343426b3b97b37434b09ade339f745a293b15bb06d88da"
+      "sha256": "d3c2e1e233b3d21b737d911def34290165b1c0b034d4c2d17a83352ec109f4d9"
     },
     {
       "exists": true,
-      "route": "demo/readme_snippet.md",
-      "sha256": "242a40dffa53786b0dbd85be84acf3851b1b58053abf0b27ef6dc23547093450"
+      "route": "demo/public_readiness.md",
+      "sha256": "22ce114567f3344635894eb952681d7d1c758837e404991804de298c5f42db0d"
+    },
+    {
+      "exists": true,
+      "route": "demo/public_readiness.json",
+      "sha256": "1dfc7069eb2d18a3bc6cea58142b955cc9d04719def2392f8768eb22a0bb018c"
+    },
+    {
+      "exists": true,
+      "route": "demo/promotion_pack.md",
+      "sha256": "73157f41a12119f3e85c8eaa2a1644f8cbd30ff6bf8dac9b6df3546793e84adc"
+    },
+    {
+      "exists": true,
+      "route": "demo/promotion_pack.json",
+      "sha256": "dea610cc655b7957b22cc6ae63f02a8304cfe70accdeb8ed5ba2c749f71e126b"
+    },
+    {
+      "exists": true,
+      "route": "demo/index.html",
+      "sha256": "33b02aa4bd3ab1536aac180404d46e4bf6a2266a21ee4cfdd78c0dd870f055f5"
+    },
+    {
+      "exists": true,
+      "route": "demo/cli_help.md",
+      "sha256": "a25f3b40ab9b54da17b7f6d55e5f3d48b46c43b0f3b131930cfe7c3ed187c569"
+    },
+    {
+      "exists": true,
+      "route": "demo/cli_help.json",
+      "sha256": "a6b127344f6cb5f6b09a07aa51c7d039fc787083400c4238aa9afa2b48774696"
     }
   ],
   "commands": [
     {
       "documented": true,
       "name": "build-packet"
+    },
+    {
+      "documented": true,
+      "name": "policy-profile"
+    },
+    {
+      "documented": true,
+      "name": "policy-compare"
+    },
+    {
+      "documented": true,
+      "name": "policy-gallery"
     },
     {
       "documented": true,
@@ -177,6 +239,10 @@
     },
     {
       "documented": true,
+      "name": "release-compare"
+    },
+    {
+      "documented": true,
       "name": "maturity-report"
     },
     {
@@ -201,7 +267,51 @@
     },
     {
       "documented": true,
+      "name": "final-handoff"
+    },
+    {
+      "documented": true,
+      "name": "maintainer-note"
+    },
+    {
+      "documented": true,
+      "name": "final-qa"
+    },
+    {
+      "documented": true,
       "name": "readme-snippet"
+    },
+    {
+      "documented": true,
+      "name": "public-readiness"
+    },
+    {
+      "documented": true,
+      "name": "promotion-pack"
+    },
+    {
+      "documented": true,
+      "name": "adoption-notes"
+    },
+    {
+      "documented": true,
+      "name": "landing-page"
+    },
+    {
+      "documented": true,
+      "name": "docs-export"
+    },
+    {
+      "documented": true,
+      "name": "snapshot-ledger"
+    },
+    {
+      "documented": true,
+      "name": "snapshot-compare"
+    },
+    {
+      "documented": true,
+      "name": "review-queue"
     }
   ],
   "ok": true,
@@ -219,5 +329,5 @@
     "no_workflows": true,
     "public_scan_clean": true
   },
-  "version": "0.5.0"
+  "version": "1.0.1"
 }

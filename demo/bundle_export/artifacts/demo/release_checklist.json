@@ -55,5 +55,5 @@
   "ok": true,
   "project": "fund-exposure-lookthrough",
   "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
-  "version": "0.5.0"
+  "version": "1.0.1"
 }

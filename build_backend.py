@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import base64
 import csv
+import gzip
 import hashlib
 import io
 import tarfile
-import time
 import zipfile
 from pathlib import Path
 
@@ -15,7 +15,17 @@ from pathlib import Path
 NAME = "fund-exposure-lookthrough"
 MODULE = "fund_exposure_lookthrough"
 ROOT = Path(__file__).resolve().parent
-VERSION = "0.5.0"
+
+
+def _read_version() -> str:
+    init_text = (ROOT / "src" / MODULE / "__init__.py").read_text(encoding="utf-8")
+    for line in init_text.splitlines():
+        if line.startswith("__version__"):
+            return line.split("=", 1)[1].strip().strip('"')
+    raise RuntimeError("could not read package version")
+
+
+VERSION = _read_version()
 DIST = f"{NAME}-{VERSION}"
 DIST_INFO = f"{NAME.replace('-', '_')}-{VERSION}.dist-info"
 
@@ -71,27 +81,37 @@ def build_sdist(sdist_directory, config_settings=None):  # noqa: ANN001
     sdist_path = Path(sdist_directory) / sdist_name
     include_roots = ["src", "tests", "examples", "demo", "skills"]
     include_files = ["README.md", "LICENSE", "CHANGELOG.md", "RELEASE_NOTES.md", "pyproject.toml", "build_backend.py", ".gitignore"]
-    with tarfile.open(sdist_path, "w:gz") as archive:
-        for root_name in include_roots:
-            for path in sorted((ROOT / root_name).rglob("*")):
-                if path.is_file() and "__pycache__" not in path.parts:
-                    archive.add(path, arcname=f"{DIST}/{path.relative_to(ROOT)}")
-        for rel in include_files:
-            archive.add(ROOT / rel, arcname=f"{DIST}/{rel}")
-        info = tarfile.TarInfo(f"{DIST}/PKG-INFO")
-        data = _metadata().encode("utf-8")
-        info.size = len(data)
-        info.mtime = 0
-        archive.addfile(info, io.BytesIO(data))
+    with sdist_path.open("wb") as raw_file:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw_file, mtime=0) as gzip_file:
+            with tarfile.open(fileobj=gzip_file, mode="w") as archive:
+                metadata = _metadata().encode("utf-8")
+                for root_name in include_roots:
+                    for path in sorted((ROOT / root_name).rglob("*")):
+                        if path.is_file() and "__pycache__" not in path.parts:
+                            _add_tar_file(archive, path, f"{DIST}/{path.relative_to(ROOT)}")
+                for rel in include_files:
+                    _add_tar_file(archive, ROOT / rel, f"{DIST}/{rel}")
+                info = _tar_info(f"{DIST}/PKG-INFO", len(metadata))
+                archive.addfile(info, io.BytesIO(metadata))
     return sdist_name
 
 
-def _read_version() -> str:
-    init_text = (ROOT / "src" / MODULE / "__init__.py").read_text(encoding="utf-8")
-    for line in init_text.splitlines():
-        if line.startswith("__version__"):
-            return line.split("=", 1)[1].strip().strip('"')
-    raise RuntimeError("could not read package version")
+def _add_tar_file(archive: tarfile.TarFile, path: Path, arcname: str) -> None:
+    data = path.read_bytes()
+    info = _tar_info(arcname, len(data))
+    archive.addfile(info, io.BytesIO(data))
+
+
+def _tar_info(arcname: str, size: int) -> tarfile.TarInfo:
+    info = tarfile.TarInfo(arcname)
+    info.size = size
+    info.mtime = 0
+    info.mode = 0o644
+    info.uid = 0
+    info.gid = 0
+    info.uname = ""
+    info.gname = ""
+    return info
 
 
 def _metadata() -> str:
@@ -103,7 +123,7 @@ def _metadata() -> str:
         "Summary: Zero-dependency static fund look-through exposure analysis CLI.\n"
         "License-Expression: MIT\n"
         "Requires-Python: >=3.10\n"
-        "Classifier: Development Status :: 3 - Alpha\n"
+        "Classifier: Development Status :: 5 - Production/Stable\n"
         "Classifier: Environment :: Console\n"
         "Classifier: License :: OSI Approved :: MIT License\n"
         "Classifier: Programming Language :: Python :: 3\n"

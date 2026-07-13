@@ -1,0 +1,201 @@
+{
+  "baseline": "v0.5.0",
+  "changes_since_baseline": [
+    "Added public-readiness, docs-export, and landing-page artifacts for cold reviewer onboarding.",
+    "Added snapshot-ledger, snapshot-compare, and review-queue artifacts for deterministic state and follow-up review.",
+    "Added policy-profile, policy-compare, and policy-gallery artifacts for research-only threshold review.",
+    "Added release-compare, promotion-pack, and adoption-notes artifacts for cross-run review and thesis-ledger reuse.",
+    "Added final-handoff and maintainer-note artifacts for release owner and maintainer evidence.",
+    "Updated package metadata to production/stable v1.0.1 while preserving zero runtime dependencies.",
+    "Updated the local build backend to read the package version and emit reproducible wheel/sdist archives.",
+    "Expanded CLI regression and public safety tests for command metadata, deterministic outputs, packaged data, and no-advice boundaries."
+  ],
+  "coherence": {
+    "artifacts_present": true,
+    "no_workflow_automation": true,
+    "public_scan_clean": true,
+    "release_checks_ready": true,
+    "runtime_dependencies_empty": true,
+    "version_matches": true
+  },
+  "no_advice_boundaries": [
+    "research use only",
+    "not investment advice",
+    "no buy, sell, hold, target allocation, or trade recommendations",
+    "no return predictions",
+    "no personalized financial advice",
+    "only user-supplied static fixture data",
+    "no live data fetching",
+    "no broker connectivity"
+  ],
+  "project": "fund-exposure-lookthrough",
+  "release_artifacts": [
+    {
+      "exists": true,
+      "route": "README.md",
+      "sha256": "2680ab2f2576311b8ceca09a681bc74e678a101fa8922b0b9db9673279e066b9"
+    },
+    {
+      "exists": true,
+      "route": "CHANGELOG.md",
+      "sha256": "bb7b09877840d80e24e8bcf4c47ed2d842c2e45aef1531853794608cc5d69a48"
+    },
+    {
+      "exists": true,
+      "route": "RELEASE_NOTES.md",
+      "sha256": "c4f848f5f345363df58d8fe9a75a413abe97d50e9976553a56e1a50a8c04feea"
+    },
+    {
+      "exists": true,
+      "route": "pyproject.toml",
+      "sha256": "1ec4eeb078e9c2d1659dbf215f02b6ce1a29ed20e2e1d3e61d187466d2fb48ef"
+    },
+    {
+      "exists": true,
+      "route": "build_backend.py",
+      "sha256": "f8fc0ce763044ce42b4673319ccb598f68c6587d0aa31f304082b7755a654f86"
+    },
+    {
+      "exists": true,
+      "route": "demo/final_handoff.json",
+      "sha256": "1bcdb822080ef3cfa1460d68a2387df3cdc9d1e50b516e687db7eb955dd009b3"
+    },
+    {
+      "exists": true,
+      "route": "demo/maintainer_note.json",
+      "sha256": "1650241e36a8452398959653995d2c2abd0b352bb9dd1dccae54a39e9ccb9dbf"
+    },
+    {
+      "exists": true,
+      "route": "demo/release_manifest.json",
+      "sha256": "56a4bf88b965946b728f300d946dfd617c6062f42db6214405616d95277b16ed"
+    },
+    {
+      "exists": true,
+      "route": "demo/artifact_catalog.json",
+      "sha256": "fcd2ebd5c52f7caabbf271649d83615c095e902715db7a772e4aa2077ca334d5"
+    },
+    {
+      "exists": true,
+      "route": "demo/command_matrix.json",
+      "sha256": "bd104384894eadb15d06e1373419961347129cae3467ae11ff77bc795e33ed6d"
+    },
+    {
+      "exists": true,
+      "route": "demo/release_checklist.json",
+      "sha256": "d3c2e1e233b3d21b737d911def34290165b1c0b034d4c2d17a83352ec109f4d9"
+    },
+    {
+      "exists": true,
+      "route": "demo/asset_health.json",
+      "sha256": "d5e015d46e4e6870ab29addd8d1ede912d91d98a94e5ac03348ade054513c8f2"
+    }
+  ],
+  "release_checks": [
+    {
+      "evidence": [
+        "tests/"
+      ],
+      "name": "tests",
+      "owner_action": "Run `python -m pytest -q` from the source checkout.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "pyproject.toml",
+        "build_backend.py"
+      ],
+      "name": "package",
+      "owner_action": "Build with the local zero-dependency backend and inspect metadata.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "build_backend.py",
+        "src/fund_exposure_lookthrough/__init__.py"
+      ],
+      "name": "wheel-smoke",
+      "owner_action": "Install the built wheel in a clean environment and run `fund-exposure-lookthrough --version` plus `selfcheck --root .`.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "clean public hygiene scan"
+      ],
+      "name": "public-scan",
+      "owner_action": "Run `PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .`.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "render.DISCLAIMER",
+        "README.md"
+      ],
+      "name": "no-advice-boundaries",
+      "owner_action": "Confirm docs and generated reports preserve static research-only language.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "no .github/workflows directory"
+      ],
+      "name": "no-workflows",
+      "owner_action": "Confirm no workflow automation files are present.",
+      "ready": true
+    }
+  ],
+  "release_risks": [
+    {
+      "mitigation": "Regenerate command-matrix, release-manifest, artifact-catalog, release-checklist, asset-health, bundle-export, maintainer-note, final-handoff, and final-qa before tagging.",
+      "risk": "Generated artifact drift after source edits"
+    },
+    {
+      "mitigation": "Run the wheel-build and wheel-smoke commands manually from a clean checkout.",
+      "risk": "Wheel smoke omitted because there is no workflow automation"
+    },
+    {
+      "mitigation": "Run fixture-doctor with an explicit --as-of date and update user-supplied fixture source metadata when needed.",
+      "risk": "Fixture freshness assumptions become stale"
+    },
+    {
+      "mitigation": "Reject changes that add live fetches, orders, recommendations, target allocations, trades, or return predictions.",
+      "risk": "Scope creep into live data, broker connectivity, or advice"
+    }
+  ],
+  "release_version": "1.0.1",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "summary": "deterministic final QA packet for release review",
+  "verification_commands": [
+    {
+      "command": "PYTHONPATH=src python -m pytest -q",
+      "expected": "All tests pass, including deterministic artifact and public safety coverage.",
+      "name": "tests"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .",
+      "expected": "JSON reports ok=true with required files present and public hygiene clean.",
+      "name": "selfcheck"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .",
+      "expected": "JSON reports ok=true and findings is empty.",
+      "name": "public-scan"
+    },
+    {
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-checklist --root .",
+      "expected": "Release checklist reports ok=true across tests, package, smoke, public scan, boundaries, and workflow absence.",
+      "name": "release-checklist"
+    },
+    {
+      "command": "python -m pip wheel . --no-deps -w dist",
+      "expected": "Wheel builds with no runtime dependency resolution.",
+      "name": "wheel-build"
+    },
+    {
+      "command": "python -m pip install --force-reinstall --no-deps dist/fund_exposure_lookthrough-1.0.1-py3-none-any.whl && fund-exposure-lookthrough --version && fund-exposure-lookthrough selfcheck --root .",
+      "expected": "Installed CLI reports 1.0.1 and selfcheck passes.",
+      "name": "wheel-smoke"
+    }
+  ],
+  "version": "1.0.1"
+}

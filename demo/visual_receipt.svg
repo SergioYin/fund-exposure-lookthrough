@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="456" viewBox="0 0 680 456" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="830" viewBox="0 0 680 830" role="img" aria-labelledby="title desc">
   <title id="title">Fund Exposure Look-through Visual Receipt</title>
   <desc id="desc">Deterministic receipt of demo artifact routes and hashes.</desc>
   <style>
@@ -11,21 +11,32 @@
     .hash { font: 12px monospace; fill: #344054; }
     .status { font: 700 12px Arial, sans-serif; fill: #266150; }
   </style>
-  <rect class="bg" width="680" height="456"/>
-  <rect class="panel" x="18" y="18" width="644" height="420" rx="6"/>
+  <rect class="bg" width="680" height="830"/>
+  <rect class="panel" x="18" y="18" width="644" height="794" rx="6"/>
   <text x="34" y="52" class="title">Public Showcase Receipt</text>
-  <text x="34" y="76" class="meta">fund-exposure-lookthrough 0.5.0 | static demo artifacts | no live data</text>
+  <text x="34" y="76" class="meta">fund-exposure-lookthrough 1.0.1 | static demo artifacts | no live data</text>
   <text x="34" y="102" class="head">Route</text>
   <text x="340" y="102" class="head">SHA-256 prefix</text>
   <text x="520" y="102" class="head">Status</text>
-  <text x="34" y="118" class="route">demo/exposure_packet.md</text><text x="340" y="118" class="hash">cf497f898c35ab04</text><text x="520" y="118" class="status">ready</text>
-  <text x="34" y="152" class="route">demo/exposure_packet.json</text><text x="340" y="152" class="hash">62e62ce14588903a</text><text x="520" y="152" class="status">ready</text>
-  <text x="34" y="186" class="route">demo/history_comparison.md</text><text x="340" y="186" class="hash">deff98f1c65ba8fb</text><text x="520" y="186" class="status">ready</text>
-  <text x="34" y="220" class="route">demo/history_comparison.json</text><text x="340" y="220" class="hash">18da1501113fd0d1</text><text x="520" y="220" class="status">ready</text>
-  <text x="34" y="254" class="route">demo/case_gallery.md</text><text x="340" y="254" class="hash">c21a7cc813780796</text><text x="520" y="254" class="status">ready</text>
-  <text x="34" y="288" class="route">demo/case_gallery.json</text><text x="340" y="288" class="hash">340a8454bf7dc8dc</text><text x="520" y="288" class="status">ready</text>
-  <text x="34" y="322" class="route">demo/reviewer_scorecard.md</text><text x="340" y="322" class="hash">d22fdfb70563bda0</text><text x="520" y="322" class="status">ready</text>
-  <text x="34" y="356" class="route">demo/reviewer_scorecard.json</text><text x="340" y="356" class="hash">a915183e4ad14346</text><text x="520" y="356" class="status">ready</text>
-  <text x="34" y="390" class="route">demo/static_dashboard.html</text><text x="340" y="390" class="hash">06ad0a9c3b7ba259</text><text x="520" y="390" class="status">ready</text>
-  <text x="34" y="428" class="meta">Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.</text>
+  <text x="34" y="118" class="route">demo/index.html</text><text x="340" y="118" class="hash">33b02aa4bd3ab153</text><text x="520" y="118" class="status">ready</text>
+  <text x="34" y="152" class="route">demo/public_readiness.md</text><text x="340" y="152" class="hash">22ce114567f33446</text><text x="520" y="152" class="status">ready</text>
+  <text x="34" y="186" class="route">demo/public_readiness.json</text><text x="340" y="186" class="hash">1dfc7069eb2d18a3</text><text x="520" y="186" class="status">ready</text>
+  <text x="34" y="220" class="route">demo/cli_help.md</text><text x="340" y="220" class="hash">a25f3b40ab9b54da</text><text x="520" y="220" class="status">ready</text>
+  <text x="34" y="254" class="route">demo/cli_help.json</text><text x="340" y="254" class="hash">a6b127344f6cb5f6</text><text x="520" y="254" class="status">ready</text>
+  <text x="34" y="288" class="route">demo/exposure_packet.md</text><text x="340" y="288" class="hash">cf497f898c35ab04</text><text x="520" y="288" class="status">ready</text>
+  <text x="34" y="322" class="route">demo/exposure_packet.json</text><text x="340" y="322" class="hash">62361eb427920547</text><text x="520" y="322" class="status">ready</text>
+  <text x="34" y="356" class="route">demo/policy_profile.md</text><text x="340" y="356" class="hash">35126960d1247e60</text><text x="520" y="356" class="status">ready</text>
+  <text x="34" y="390" class="route">demo/policy_profile.json</text><text x="340" y="390" class="hash">c88964d8128f48e6</text><text x="520" y="390" class="status">ready</text>
+  <text x="34" y="424" class="route">demo/policy_compare.md</text><text x="340" y="424" class="hash">c960d06a9ee0985d</text><text x="520" y="424" class="status">ready</text>
+  <text x="34" y="458" class="route">demo/policy_compare.json</text><text x="340" y="458" class="hash">287880be15a62a98</text><text x="520" y="458" class="status">ready</text>
+  <text x="34" y="492" class="route">demo/policy_gallery.md</text><text x="340" y="492" class="hash">54e10610f7c796a8</text><text x="520" y="492" class="status">ready</text>
+  <text x="34" y="526" class="route">demo/policy_gallery.json</text><text x="340" y="526" class="hash">f3c29a47c209effb</text><text x="520" y="526" class="status">ready</text>
+  <text x="34" y="560" class="route">demo/history_comparison.md</text><text x="340" y="560" class="hash">deff98f1c65ba8fb</text><text x="520" y="560" class="status">ready</text>
+  <text x="34" y="594" class="route">demo/history_comparison.json</text><text x="340" y="594" class="hash">18da1501113fd0d1</text><text x="520" y="594" class="status">ready</text>
+  <text x="34" y="628" class="route">demo/case_gallery.md</text><text x="340" y="628" class="hash">b2d91f3f9545bbc0</text><text x="520" y="628" class="status">ready</text>
+  <text x="34" y="662" class="route">demo/case_gallery.json</text><text x="340" y="662" class="hash">6c8e6fb86ee0e598</text><text x="520" y="662" class="status">ready</text>
+  <text x="34" y="696" class="route">demo/reviewer_scorecard.md</text><text x="340" y="696" class="hash">d22fdfb70563bda0</text><text x="520" y="696" class="status">ready</text>
+  <text x="34" y="730" class="route">demo/reviewer_scorecard.json</text><text x="340" y="730" class="hash">da6eb6778a47aeca</text><text x="520" y="730" class="status">ready</text>
+  <text x="34" y="764" class="route">demo/static_dashboard.html</text><text x="340" y="764" class="hash">06ad0a9c3b7ba259</text><text x="520" y="764" class="status">ready</text>
+  <text x="34" y="802" class="meta">Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.</text>
 </svg>

@@ -1,5 +1,5 @@
 {
-  "command_count": 19,
+  "command_count": 34,
   "commands": [
     {
       "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
@@ -16,6 +16,52 @@
         "demo/exposure_packet.json"
       ],
       "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli build-packet --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--profile",
+        "--exposure",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "policy-profile",
+      "outputs": [
+        "demo/policy_profile.md",
+        "demo/policy_profile.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-profile --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--left",
+        "--right",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "policy-compare",
+      "outputs": [
+        "demo/policy_compare.md",
+        "demo/policy_compare.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-compare --root . --left demo/policy_profile.json --right demo/policy_profile.json"
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "policy-gallery",
+      "outputs": [
+        "demo/policy_gallery.md",
+        "demo/policy_gallery.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-gallery --root ."
     },
     {
       "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
@@ -180,6 +226,22 @@
       "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
       "inputs": [
         "--root",
+        "--left",
+        "--right",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "release-compare",
+      "outputs": [
+        "demo/release_compare.md",
+        "demo/release_compare.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-compare --root . --left demo/release_manifest.json --right demo/artifact_catalog.json"
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
         "--out-md",
         "--out-json"
       ],
@@ -264,6 +326,52 @@
       "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
       "inputs": [
         "--root",
+        "--repo-url",
+        "--release-version",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "final-handoff",
+      "outputs": [
+        "demo/final_handoff.md",
+        "demo/final_handoff.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli final-handoff --root . --repo-url REPO_URL_PLACEHOLDER"
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "maintainer-note",
+      "outputs": [
+        "demo/maintainer_note.md",
+        "demo/maintainer_note.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli maintainer-note --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--baseline",
+        "--release-version",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "final-qa",
+      "outputs": [
+        "demo/final_qa.md",
+        "demo/final_qa.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli final-qa --root . --baseline v0.5.0"
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
         "--out-md"
       ],
       "name": "readme-snippet",
@@ -271,9 +379,125 @@
         "demo/readme_snippet.md"
       ],
       "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli readme-snippet --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "public-readiness",
+      "outputs": [
+        "demo/public_readiness.md",
+        "demo/public_readiness.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli public-readiness --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "promotion-pack",
+      "outputs": [
+        "demo/promotion_pack.md",
+        "demo/promotion_pack.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli promotion-pack --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "adoption-notes",
+      "outputs": [
+        "demo/adoption_notes.md",
+        "demo/adoption_notes.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli adoption-notes --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-html"
+      ],
+      "name": "landing-page",
+      "outputs": [
+        "demo/index.html"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli landing-page --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "docs-export",
+      "outputs": [
+        "demo/cli_help.md",
+        "demo/cli_help.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli docs-export --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "snapshot-ledger",
+      "outputs": [
+        "demo/snapshot_ledger.md",
+        "demo/snapshot_ledger.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli snapshot-ledger --root ."
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--left",
+        "--right",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "snapshot-compare",
+      "outputs": [
+        "demo/snapshot_compare.md",
+        "demo/snapshot_compare.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli snapshot-compare --root . --left demo/snapshot_ledger.json --right demo/snapshot_ledger.json"
+    },
+    {
+      "exit_codes": "0 on success; 2 for file or validation errors handled by the CLI wrapper",
+      "inputs": [
+        "--root",
+        "--exposure",
+        "--fixture-doctor",
+        "--asset-health",
+        "--release-checklist",
+        "--out-md",
+        "--out-json"
+      ],
+      "name": "review-queue",
+      "outputs": [
+        "demo/review_queue.md",
+        "demo/review_queue.json"
+      ],
+      "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli review-queue --root ."
     }
   ],
   "project": "fund-exposure-lookthrough",
   "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
-  "version": "0.5.0"
+  "version": "1.0.1"
 }

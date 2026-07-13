@@ -1,0 +1,108 @@
+{
+  "artifacts": [
+    {
+      "exists": true,
+      "route": "demo/exposure_packet.md",
+      "sha256": "cf497f898c35ab04e77104d51bcb699b17e7b53e346ddf1e89d18e98b0fcd102"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_profile.md",
+      "sha256": "35126960d1247e6094a00cf61a21285d6e054a5ced379ef0147bd3a6e23e5d5e"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_gallery.md",
+      "sha256": "54e10610f7c796a84f27b1c77c042a3079882c972ec3897bb6fd4519e455a90d"
+    },
+    {
+      "exists": true,
+      "route": "demo/public_readiness.md",
+      "sha256": "22ce114567f3344635894eb952681d7d1c758837e404991804de298c5f42db0d"
+    },
+    {
+      "exists": true,
+      "route": "demo/promotion_pack.md",
+      "sha256": "73157f41a12119f3e85c8eaa2a1644f8cbd30ff6bf8dac9b6df3546793e84adc"
+    },
+    {
+      "exists": true,
+      "route": "demo/command_matrix.json",
+      "sha256": "bd104384894eadb15d06e1373419961347129cae3467ae11ff77bc795e33ed6d"
+    },
+    {
+      "exists": true,
+      "route": "demo/release_checklist.json",
+      "sha256": "d3c2e1e233b3d21b737d911def34290165b1c0b034d4c2d17a83352ec109f4d9"
+    },
+    {
+      "exists": true,
+      "route": "demo/asset_health.json",
+      "sha256": "d5e015d46e4e6870ab29addd8d1ede912d91d98a94e5ac03348ade054513c8f2"
+    }
+  ],
+  "boundaries": [
+    "zero runtime dependencies",
+    "no workflow automation",
+    "no live data fetching",
+    "no broker connectivity",
+    "no financial advice, recommendations, target allocations, trades, or return predictions"
+  ],
+  "handoff": "release owner handoff for v1.0.1 stabilization",
+  "next_steps": [
+    "Replace REPO_URL_PLACEHOLDER with the public repository URL before publishing release notes.",
+    "Run the verification commands from a clean checkout and record results in the release owner notes.",
+    "Inspect demo/index.html, demo/public_readiness.md, and demo/final_handoff.md as the first-screen reviewer path.",
+    "Tag v1.0.1 only after tests, selfcheck, public-scan, and wheel smoke pass."
+  ],
+  "project": "fund-exposure-lookthrough",
+  "release_version": "1.0.1",
+  "repo_url": "REPO_URL_PLACEHOLDER",
+  "risks": [
+    {
+      "owner_action": "Use fixture-doctor with an explicit --as-of date before relying on a new static snapshot.",
+      "risk": "Fixture staleness"
+    },
+    {
+      "owner_action": "Regenerate command-matrix, release-manifest, artifact-catalog, and final-handoff after source or demo changes.",
+      "risk": "Generated artifact drift"
+    },
+    {
+      "owner_action": "Run the wheel build and installed CLI smoke commands manually before tagging.",
+      "risk": "Packaging smoke not performed by automation"
+    },
+    {
+      "owner_action": "Reject changes that add live fetches, broker connectivity, orders, recommendations, target allocations, or return predictions.",
+      "risk": "Scope creep into advice or live-data behavior"
+    }
+  ],
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "verification_commands": [
+    {
+      "command": "python -m pytest -q",
+      "expected": "All local tests pass.",
+      "name": "tests"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .",
+      "expected": "JSON reports ok=true with no missing required files or hygiene findings.",
+      "name": "selfcheck"
+    },
+    {
+      "command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .",
+      "expected": "JSON reports ok=true with no private terms or credential-shaped strings.",
+      "name": "public-scan"
+    },
+    {
+      "command": "python -m pip wheel . --no-deps -w dist",
+      "expected": "A fund_exposure_lookthrough wheel is created using the local zero-dependency backend.",
+      "name": "wheel-build"
+    },
+    {
+      "command": "python -m pip install --force-reinstall --no-deps dist/fund_exposure_lookthrough-1.0.1-py3-none-any.whl && fund-exposure-lookthrough --version && fund-exposure-lookthrough selfcheck --root .",
+      "expected": "Installed CLI reports 1.0.1 and selfcheck passes.",
+      "name": "wheel-smoke"
+    }
+  ],
+  "version": "1.0.1"
+}

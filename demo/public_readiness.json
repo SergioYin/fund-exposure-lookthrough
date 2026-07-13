@@ -1,0 +1,81 @@
+{
+  "no_live_data": true,
+  "no_workflows": true,
+  "project": "fund-exposure-lookthrough",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "steps": [
+    {
+      "artifact": "stdout",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli --help",
+      "expected": "CLI help lists deterministic artifact commands and no network setup.",
+      "goal": "Confirm the project is static research tooling.",
+      "minute": "0-1"
+    },
+    {
+      "artifact": "demo/exposure_packet.md",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli build-packet --root . && PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-profile --root .",
+      "expected": "Exposure and policy profile artifacts appear under demo/ without allocation recommendations.",
+      "goal": "Build the primary exposure packet and research-only policy profile from bundled CSV fixtures.",
+      "minute": "1-2"
+    },
+    {
+      "artifact": "demo/fixture_doctor.md",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli fixture-doctor --root .",
+      "expected": "Clean bundled fixtures return ok and document source metadata checks.",
+      "goal": "Review fixture quality without fetching live data.",
+      "minute": "2-3"
+    },
+    {
+      "artifact": "demo/static_dashboard.html",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli static-dashboard --root .",
+      "expected": "A no-JavaScript HTML dashboard is available.",
+      "goal": "Open the static dashboard for a visual table review.",
+      "minute": "3-4"
+    },
+    {
+      "artifact": "demo/case_gallery.md",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli case-gallery --root . && PYTHONPATH=src python -m fund_exposure_lookthrough.cli policy-gallery --root .",
+      "expected": "Current, prior, direct-wrapper, and bundled policy profile cases are summarized.",
+      "goal": "Compare bundled scenarios and inspect public examples.",
+      "minute": "4-5"
+    },
+    {
+      "artifact": "demo/cli_help.md",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli docs-export --root .",
+      "expected": "CLI help and command metadata are exported as Markdown and JSON.",
+      "goal": "Export route help for offline review.",
+      "minute": "5-6"
+    },
+    {
+      "artifact": "demo/index.html",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli landing-page --root .",
+      "expected": "A static index page links demos, bundle, receipt, command matrix, and safety boundaries.",
+      "goal": "Build a public landing page that links the demo set.",
+      "minute": "6-7"
+    },
+    {
+      "artifact": "demo/visual_receipt.svg",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli visual-receipt --root . && PYTHONPATH=src python -m fund_exposure_lookthrough.cli command-matrix --root .",
+      "expected": "Artifact hashes and command coverage are available.",
+      "goal": "Create a visual receipt and command matrix for reviewer orientation.",
+      "minute": "7-8"
+    },
+    {
+      "artifact": "demo/asset_health.md",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli asset-health --root . && PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .",
+      "expected": "Static boundaries, package data, and public hygiene checks pass.",
+      "goal": "Run safety and package readiness checks.",
+      "minute": "8-9"
+    },
+    {
+      "artifact": "demo/bundle_export/manifest.md",
+      "command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root .",
+      "expected": "Portable review bundle manifest is written with copied artifacts.",
+      "goal": "Bundle the deterministic public review artifacts.",
+      "minute": "9-10"
+    }
+  ],
+  "version": "1.0.1",
+  "walkthrough": "first-10-minute cold-user walkthrough",
+  "zero_dependency": true
+}

@@ -1,0 +1,66 @@
+{
+  "audience": "agents reusing static outputs in a thesis ledger",
+  "evidence": [
+    {
+      "exists": true,
+      "route": "demo/exposure_packet.json",
+      "sha256": "62361eb427920547e9339df3dee5d5d439f31bb2affa08b7e3c93ad305c3808a"
+    },
+    {
+      "exists": true,
+      "route": "demo/policy_profile.json",
+      "sha256": "c88964d8128f48e67b3d9a14c3e0741eb64102edcc02389574deef4f6565c6d9"
+    },
+    {
+      "exists": true,
+      "route": "demo/review_queue.json",
+      "sha256": "38fdd89c00c31887a3f4519273f139e3b0fa82c09a87a6b897493934df8b6b37"
+    },
+    {
+      "exists": true,
+      "route": "demo/release_compare.json",
+      "sha256": "8fcb45f4895f4948d7e5f9138bb267eb7b6356b64f2839bb22f0330e30352e9c"
+    },
+    {
+      "exists": true,
+      "route": "demo/promotion_pack.json",
+      "sha256": "dea610cc655b7957b22cc6ae63f02a8304cfe70accdeb8ed5ba2c749f71e126b"
+    },
+    {
+      "exists": true,
+      "route": "demo/snapshot_ledger.json",
+      "sha256": "2bf27982382a81035542e0f2bcefef15884c74e8b675bfb51c2c6275a2df60a2"
+    }
+  ],
+  "ledger_boundary": "Use outputs as reproducible evidence only; do not convert findings into advice, target allocations, trades, or return predictions.",
+  "notes": [
+    {
+      "agent_note": "Record fixture filenames, generated artifact paths, and hashes before interpreting exposure rows.",
+      "ledger_field": "inputs",
+      "step": "capture_static_inputs"
+    },
+    {
+      "agent_note": "Reference exposure_packet.json and policy_profile.json as static research evidence, not as portfolio instructions.",
+      "ledger_field": "evidence.exposure",
+      "step": "attach_exposure_evidence"
+    },
+    {
+      "agent_note": "Use release_compare.json or snapshot_ledger.json to describe artifact changes across runs.",
+      "ledger_field": "evidence.release_delta",
+      "step": "track_release_delta"
+    },
+    {
+      "agent_note": "Copy review_queue.json questions into the thesis ledger as unresolved review items.",
+      "ledger_field": "review.questions",
+      "step": "queue_reviewer_questions"
+    },
+    {
+      "agent_note": "Use promotion_pack.json to prove public-readiness, landing page, receipt, command matrix, and scorecard coverage.",
+      "ledger_field": "evidence.promotion",
+      "step": "attach_promotion_evidence"
+    }
+  ],
+  "project": "fund-exposure-lookthrough",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "version": "1.0.1"
+}

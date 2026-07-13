@@ -5,6 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from fund_exposure_lookthrough import __version__
 from fund_exposure_lookthrough.cli import _command_names, build_parser
 
 
@@ -44,11 +45,45 @@ def test_command_matrix_registry_matches_argparse_routes():
 
     assert set(_command_names()) == set(subparsers_action.choices)
 
+    for spec in _command_names():
+        command = subparsers_action.choices[spec]
+        assert command.format_help().startswith(f"usage: fund-exposure-lookthrough {spec}")
+
+
+def test_public_release_routes_are_explicitly_covered_by_command_metadata():
+    specs = {spec["name"]: spec for spec in build_parser_command_specs()}
+    public_routes = {
+        "final-handoff": ["demo/final_handoff.md", "demo/final_handoff.json"],
+        "public-readiness": ["demo/public_readiness.md", "demo/public_readiness.json"],
+        "landing-page": ["demo/index.html"],
+        "docs-export": ["demo/cli_help.md", "demo/cli_help.json"],
+        "policy-profile": ["demo/policy_profile.md", "demo/policy_profile.json"],
+        "policy-compare": ["demo/policy_compare.md", "demo/policy_compare.json"],
+        "policy-gallery": ["demo/policy_gallery.md", "demo/policy_gallery.json"],
+        "maintainer-note": ["demo/maintainer_note.md", "demo/maintainer_note.json"],
+        "final-qa": ["demo/final_qa.md", "demo/final_qa.json"],
+    }
+
+    for route, outputs in public_routes.items():
+        assert route in specs
+        assert specs[route]["outputs"] == outputs
+        assert route in specs[route]["regeneration_command"]
+        assert specs[route]["exit_codes"]
+
+
+def build_parser_command_specs():
+    from fund_exposure_lookthrough.cli import _command_specs
+
+    return _command_specs()
+
 
 def test_cli_routes_generate_expected_artifacts(tmp_path):
     copy_project_inputs(tmp_path)
     commands = [
         ("build-packet",),
+        ("policy-profile",),
+        ("policy-compare",),
+        ("policy-gallery",),
         ("compare-history",),
         ("overlap-matrix",),
         ("review-ledger",),
@@ -56,16 +91,29 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         ("static-dashboard",),
         ("case-gallery",),
         ("reviewer-scorecard",),
-        ("visual-receipt",),
-        ("release-manifest",),
         ("maturity-report",),
-        ("artifact-catalog",),
         ("command-matrix",),
         ("release-checklist",),
+        ("public-readiness",),
+        ("docs-export",),
+        ("landing-page",),
+        ("visual-receipt",),
+        ("promotion-pack",),
         ("readme-snippet",),
+        ("release-manifest",),
+        ("artifact-catalog",),
+        ("release-compare",),
+        ("snapshot-ledger",),
+        ("snapshot-compare",),
+        ("adoption-notes",),
         ("asset-health",),
+        ("review-queue",),
+        ("final-handoff",),
+        ("maintainer-note",),
+        ("final-qa",),
         ("bundle-export",),
     ]
+    assert set(_command_names()) - {"selfcheck", "public-scan"} == {command[0] for command in commands}
 
     for command in commands:
         result = run_cli(tmp_path, *command, "--root", ".")
@@ -74,6 +122,12 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
     expected = [
         "demo/exposure_packet.md",
         "demo/exposure_packet.json",
+        "demo/policy_profile.md",
+        "demo/policy_profile.json",
+        "demo/policy_compare.md",
+        "demo/policy_compare.json",
+        "demo/policy_gallery.md",
+        "demo/policy_gallery.json",
         "demo/history_comparison.md",
         "demo/history_comparison.json",
         "demo/overlap_matrix.md",
@@ -90,6 +144,8 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         "demo/visual_receipt.svg",
         "demo/release_manifest.md",
         "demo/release_manifest.json",
+        "demo/release_compare.md",
+        "demo/release_compare.json",
         "demo/maturity_report.md",
         "demo/maturity_report.json",
         "demo/artifact_catalog.md",
@@ -98,6 +154,27 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         "demo/command_matrix.json",
         "demo/release_checklist.md",
         "demo/release_checklist.json",
+        "demo/final_handoff.md",
+        "demo/final_handoff.json",
+        "demo/maintainer_note.md",
+        "demo/maintainer_note.json",
+        "demo/final_qa.md",
+        "demo/final_qa.json",
+        "demo/public_readiness.md",
+        "demo/public_readiness.json",
+        "demo/promotion_pack.md",
+        "demo/promotion_pack.json",
+        "demo/adoption_notes.md",
+        "demo/adoption_notes.json",
+        "demo/cli_help.md",
+        "demo/cli_help.json",
+        "demo/snapshot_ledger.md",
+        "demo/snapshot_ledger.json",
+        "demo/snapshot_compare.md",
+        "demo/snapshot_compare.json",
+        "demo/review_queue.md",
+        "demo/review_queue.json",
+        "demo/index.html",
         "demo/readme_snippet.md",
         "demo/bundle_export/manifest.md",
         "demo/bundle_export/manifest.json",
@@ -111,6 +188,28 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
     packet = json.loads((tmp_path / "demo/exposure_packet.json").read_text(encoding="utf-8"))
     assert packet["portfolio_id"] == "2026Q2_SAMPLE"
     assert packet["total_exposure"] == 1.0
+    assert len(packet["assets"]) == packet["asset_count"]
+
+    policy = json.loads((tmp_path / "demo/policy_profile.json").read_text(encoding="utf-8"))
+    assert policy["profile"] == "balanced"
+    assert policy["policy_boundary"].startswith("Research-only threshold review")
+    assert "allocation recommendation" in policy["policy_boundary"]
+    assert {"asset", "sector", "region", "asset_class"} == set(policy["thresholds"])
+
+    policy_compare = json.loads((tmp_path / "demo/policy_compare.json").read_text(encoding="utf-8"))
+    assert policy_compare["summary"] == {"added_flags": 0, "removed_flags": 0, "shared_flags": policy["flag_count"]}
+
+    policy_gallery = json.loads((tmp_path / "demo/policy_gallery.json").read_text(encoding="utf-8"))
+    assert [case["name"] for case in policy_gallery["examples"]] == [
+        "Bundled current portfolio",
+        "Bundled prior portfolio",
+        "Direct holding and ETF wrapper",
+    ]
+    assert {profile["profile"] for case in policy_gallery["examples"] for profile in case["profiles"]} == {
+        "balanced",
+        "concentrated",
+        "conservative",
+    }
 
     gallery = json.loads((tmp_path / "demo/case_gallery.json").read_text(encoding="utf-8"))
     assert [case["name"] for case in gallery["cases"]] == [
@@ -127,10 +226,32 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
     bundle = json.loads((tmp_path / "demo/bundle_export/manifest.json").read_text(encoding="utf-8"))
     assert bundle["artifact_count"] >= 20
     assert bundle["missing"] == []
+    assert [row["route"] for row in bundle["artifacts"]] == sorted(row["route"] for row in bundle["artifacts"])
 
     health = json.loads((tmp_path / "demo/asset_health.json").read_text(encoding="utf-8"))
     assert health["ok"] is True
-    assert {row["name"] for row in health["commands"]} >= {"bundle-export", "asset-health", "artifact-catalog", "command-matrix", "release-checklist", "readme-snippet"}
+    assert {row["name"] for row in health["commands"]} >= {
+        "bundle-export",
+        "asset-health",
+        "artifact-catalog",
+        "command-matrix",
+        "release-checklist",
+        "final-handoff",
+        "readme-snippet",
+        "public-readiness",
+        "landing-page",
+        "docs-export",
+        "snapshot-ledger",
+        "snapshot-compare",
+        "review-queue",
+        "policy-profile",
+        "policy-compare",
+        "policy-gallery",
+        "release-compare",
+        "promotion-pack",
+        "adoption-notes",
+        "final-qa",
+    }
     assert all(health["package_data"].values())
     assert all(health["safety_boundaries"].values())
     assert "Quickstart Demo" in (tmp_path / "demo/readme_snippet.md").read_text(encoding="utf-8")
@@ -139,15 +260,76 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
     assert catalog["artifact_count"] >= 20
     assert {"path", "type", "bytes", "sha256", "regeneration_command"} <= set(catalog["artifacts"][0])
     assert any(row["path"] == "demo/exposure_packet.json" for row in catalog["artifacts"])
+    assert [row["path"] for row in catalog["artifacts"]] == sorted(row["path"] for row in catalog["artifacts"])
 
     matrix = json.loads((tmp_path / "demo/command_matrix.json").read_text(encoding="utf-8"))
     assert matrix["command_count"] == len(matrix["commands"])
-    assert {row["name"] for row in matrix["commands"]} >= {"artifact-catalog", "command-matrix", "release-checklist"}
+    assert {row["name"] for row in matrix["commands"]} >= {"artifact-catalog", "command-matrix", "release-checklist", "final-handoff", "maintainer-note", "final-qa", "release-compare", "promotion-pack", "adoption-notes"}
     assert all(row["inputs"] and row["outputs"] and row["exit_codes"] for row in matrix["commands"])
 
     checklist = json.loads((tmp_path / "demo/release_checklist.json").read_text(encoding="utf-8"))
     assert checklist["ok"] is True
     assert {row["name"] for row in checklist["checks"]} >= {"tests", "package", "wheel-smoke", "public-scan", "no-advice-boundaries"}
+
+    handoff = json.loads((tmp_path / "demo/final_handoff.json").read_text(encoding="utf-8"))
+    assert handoff["release_version"] == __version__
+    assert handoff["repo_url"] == "REPO_URL_PLACEHOLDER"
+    assert {row["name"] for row in handoff["verification_commands"]} >= {"tests", "selfcheck", "public-scan", "wheel-build", "wheel-smoke"}
+    assert "no live data fetching" in handoff["boundaries"]
+    assert "REPO_URL_PLACEHOLDER" in (tmp_path / "demo/final_handoff.md").read_text(encoding="utf-8")
+
+    maintainer = json.loads((tmp_path / "demo/maintainer_note.json").read_text(encoding="utf-8"))
+    assert maintainer["version"] == __version__
+    assert maintainer["purpose"] == "deterministic maintainer note for docs and packaging evidence"
+    assert "python -m pytest -q" in maintainer["verification"]
+    assert "no live data fetching" in maintainer["boundaries"]
+
+    final_qa = json.loads((tmp_path / "demo/final_qa.json").read_text(encoding="utf-8"))
+    assert final_qa["baseline"] == "v0.5.0"
+    assert final_qa["release_version"] == __version__
+    assert {row["name"] for row in final_qa["verification_commands"]} >= {"tests", "selfcheck", "public-scan", "release-checklist", "wheel-build", "wheel-smoke"}
+    assert "not investment advice" in final_qa["no_advice_boundaries"]
+    assert final_qa["coherence"]["runtime_dependencies_empty"] is True
+    assert final_qa["coherence"]["no_workflow_automation"] is True
+
+    readiness = json.loads((tmp_path / "demo/public_readiness.json").read_text(encoding="utf-8"))
+    assert readiness["walkthrough"] == "first-10-minute cold-user walkthrough"
+    assert len(readiness["steps"]) == 10
+    assert readiness["steps"][0]["minute"] == "0-1"
+
+    docs = json.loads((tmp_path / "demo/cli_help.json").read_text(encoding="utf-8"))
+    assert docs["command_count"] == len(docs["commands"])
+    assert {row["name"] for row in docs["commands"]} >= {"public-readiness", "landing-page", "docs-export", "snapshot-ledger", "snapshot-compare", "review-queue", "policy-profile", "policy-compare", "policy-gallery", "release-compare", "promotion-pack", "adoption-notes", "final-qa"}
+    assert "usage: fund-exposure-lookthrough" in docs["top_level_help"]
+
+    landing = (tmp_path / "demo/index.html").read_text(encoding="utf-8")
+    assert "public_readiness.md" in landing
+    assert "No live data fetching" in landing
+
+    snapshot = json.loads((tmp_path / "demo/snapshot_ledger.json").read_text(encoding="utf-8"))
+    assert snapshot["entry_count"] == 1
+    assert snapshot["current_snapshot"]["artifact_count"] >= 20
+    assert "timestamp" not in json.dumps(snapshot).lower()
+
+    comparison = json.loads((tmp_path / "demo/snapshot_compare.json").read_text(encoding="utf-8"))
+    assert comparison["summary"] == {"added": 0, "changed": 0, "removed": 0}
+
+    queue = json.loads((tmp_path / "demo/review_queue.json").read_text(encoding="utf-8"))
+    assert queue["question_count"] >= 1
+    assert {"rank", "priority", "source", "topic", "question"} <= set(queue["questions"][0])
+
+    release_compare = json.loads((tmp_path / "demo/release_compare.json").read_text(encoding="utf-8"))
+    assert release_compare["summary"]["metadata_changed"] >= 1
+    assert release_compare["left"]["kind"] == "release_manifest"
+    assert release_compare["right"]["kind"] == "artifact_catalog"
+
+    promotion = json.loads((tmp_path / "demo/promotion_pack.json").read_text(encoding="utf-8"))
+    assert promotion["ok"] is True
+    assert {row["label"] for row in promotion["evidence"]} >= {"public-readiness", "landing-page", "visual-receipt", "command-matrix", "reviewer-scorecard"}
+
+    adoption = json.loads((tmp_path / "demo/adoption_notes.json").read_text(encoding="utf-8"))
+    assert adoption["audience"] == "agents reusing static outputs in a thesis ledger"
+    assert "do not convert findings into advice" in adoption["ledger_boundary"]
 
 
 def test_selfcheck_and_safety_language(tmp_path):
@@ -201,30 +383,126 @@ def test_deterministic_outputs_for_packet(tmp_path):
 
 def test_deterministic_showcase_outputs(tmp_path):
     copy_project_inputs(tmp_path)
-    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("command-matrix",), ("release-checklist",), ("readme-snippet",), ("artifact-catalog",), ("bundle-export",)]:
+    for command in [
+        ("build-packet",),
+        ("policy-profile",),
+        ("policy-compare",),
+        ("policy-gallery",),
+        ("compare-history",),
+        ("overlap-matrix",),
+        ("review-ledger",),
+        ("fixture-doctor",),
+        ("static-dashboard",),
+        ("case-gallery",),
+        ("reviewer-scorecard",),
+        ("maturity-report",),
+        ("command-matrix",),
+        ("release-checklist",),
+        ("public-readiness",),
+        ("docs-export",),
+        ("landing-page",),
+        ("visual-receipt",),
+        ("promotion-pack",),
+        ("asset-health",),
+        ("final-handoff",),
+        ("maintainer-note",),
+        ("readme-snippet",),
+        ("release-manifest",),
+        ("artifact-catalog",),
+        ("release-compare",),
+        ("snapshot-ledger",),
+        ("snapshot-compare",),
+        ("review-queue",),
+        ("adoption-notes",),
+        ("final-qa",),
+        ("bundle-export",),
+    ]:
         first = run_cli(tmp_path, *command, "--root", ".")
         assert first.returncode == 0, first.stderr
     first_gallery = (tmp_path / "demo/case_gallery.json").read_bytes()
+    first_policy = (tmp_path / "demo/policy_profile.json").read_bytes()
+    first_policy_compare = (tmp_path / "demo/policy_compare.json").read_bytes()
+    first_policy_gallery = (tmp_path / "demo/policy_gallery.json").read_bytes()
     first_scorecard = (tmp_path / "demo/reviewer_scorecard.json").read_bytes()
+    first_release_compare = (tmp_path / "demo/release_compare.json").read_bytes()
     first_receipt = (tmp_path / "demo/visual_receipt.svg").read_bytes()
     first_catalog = (tmp_path / "demo/artifact_catalog.json").read_bytes()
     first_matrix = (tmp_path / "demo/command_matrix.json").read_bytes()
     first_checklist = (tmp_path / "demo/release_checklist.json").read_bytes()
+    first_readiness = (tmp_path / "demo/public_readiness.json").read_bytes()
+    first_promotion = (tmp_path / "demo/promotion_pack.json").read_bytes()
+    first_adoption = (tmp_path / "demo/adoption_notes.json").read_bytes()
+    first_docs = (tmp_path / "demo/cli_help.json").read_bytes()
+    first_landing = (tmp_path / "demo/index.html").read_bytes()
     first_snippet = (tmp_path / "demo/readme_snippet.md").read_bytes()
+    first_queue = (tmp_path / "demo/review_queue.json").read_bytes()
+    first_snapshot = (tmp_path / "demo/snapshot_ledger.json").read_bytes()
+    first_compare = (tmp_path / "demo/snapshot_compare.json").read_bytes()
     first_bundle = (tmp_path / "demo/bundle_export/manifest.json").read_bytes()
+    first_handoff = (tmp_path / "demo/final_handoff.json").read_bytes()
+    first_maintainer = (tmp_path / "demo/maintainer_note.json").read_bytes()
+    first_final_qa = (tmp_path / "demo/final_qa.json").read_bytes()
 
-    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("command-matrix",), ("release-checklist",), ("readme-snippet",), ("artifact-catalog",), ("bundle-export",)]:
+    for command in [
+        ("build-packet",),
+        ("policy-profile",),
+        ("policy-compare",),
+        ("policy-gallery",),
+        ("compare-history",),
+        ("overlap-matrix",),
+        ("review-ledger",),
+        ("fixture-doctor",),
+        ("static-dashboard",),
+        ("case-gallery",),
+        ("reviewer-scorecard",),
+        ("maturity-report",),
+        ("command-matrix",),
+        ("release-checklist",),
+        ("public-readiness",),
+        ("docs-export",),
+        ("landing-page",),
+        ("visual-receipt",),
+        ("promotion-pack",),
+        ("asset-health",),
+        ("final-handoff",),
+        ("maintainer-note",),
+        ("readme-snippet",),
+        ("release-manifest",),
+        ("artifact-catalog",),
+        ("release-compare",),
+        ("snapshot-ledger",),
+        ("snapshot-compare",),
+        ("review-queue",),
+        ("adoption-notes",),
+        ("final-qa",),
+        ("bundle-export",),
+    ]:
         second = run_cli(tmp_path, *command, "--root", ".")
         assert second.returncode == 0, second.stderr
 
     assert (tmp_path / "demo/case_gallery.json").read_bytes() == first_gallery
+    assert (tmp_path / "demo/policy_profile.json").read_bytes() == first_policy
+    assert (tmp_path / "demo/policy_compare.json").read_bytes() == first_policy_compare
+    assert (tmp_path / "demo/policy_gallery.json").read_bytes() == first_policy_gallery
     assert (tmp_path / "demo/reviewer_scorecard.json").read_bytes() == first_scorecard
+    assert (tmp_path / "demo/release_compare.json").read_bytes() == first_release_compare
     assert (tmp_path / "demo/visual_receipt.svg").read_bytes() == first_receipt
     assert (tmp_path / "demo/artifact_catalog.json").read_bytes() == first_catalog
     assert (tmp_path / "demo/command_matrix.json").read_bytes() == first_matrix
     assert (tmp_path / "demo/release_checklist.json").read_bytes() == first_checklist
+    assert (tmp_path / "demo/final_handoff.json").read_bytes() == first_handoff
+    assert (tmp_path / "demo/public_readiness.json").read_bytes() == first_readiness
+    assert (tmp_path / "demo/promotion_pack.json").read_bytes() == first_promotion
+    assert (tmp_path / "demo/adoption_notes.json").read_bytes() == first_adoption
+    assert (tmp_path / "demo/cli_help.json").read_bytes() == first_docs
+    assert (tmp_path / "demo/index.html").read_bytes() == first_landing
     assert (tmp_path / "demo/readme_snippet.md").read_bytes() == first_snippet
+    assert (tmp_path / "demo/review_queue.json").read_bytes() == first_queue
+    assert (tmp_path / "demo/snapshot_ledger.json").read_bytes() == first_snapshot
+    assert (tmp_path / "demo/snapshot_compare.json").read_bytes() == first_compare
     assert (tmp_path / "demo/bundle_export/manifest.json").read_bytes() == first_bundle
+    assert (tmp_path / "demo/maintainer_note.json").read_bytes() == first_maintainer
+    assert (tmp_path / "demo/final_qa.json").read_bytes() == first_final_qa
 
 
 def test_fixture_doctor_reports_clean_examples(tmp_path):
