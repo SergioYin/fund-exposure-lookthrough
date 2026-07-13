@@ -15,6 +15,9 @@ PYTHONPATH=src python -m fund_exposure_lookthrough.cli overlap-matrix --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli review-ledger --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli fixture-doctor --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli static-dashboard --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli case-gallery --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli reviewer-scorecard --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli visual-receipt --root .
 PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .
 PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .
 ```
@@ -44,6 +47,9 @@ python -m fund_exposure_lookthrough.cli build-packet --root .
 - `demo/review_ledger.md` and `demo/review_ledger.json`
 - `demo/fixture_doctor.md` and `demo/fixture_doctor.json`
 - `demo/static_dashboard.html`
+- `demo/case_gallery.md` and `demo/case_gallery.json`
+- `demo/reviewer_scorecard.md` and `demo/reviewer_scorecard.json`
+- `demo/visual_receipt.svg`
 - `demo/release_manifest.md` and `demo/release_manifest.json`
 - `demo/maturity_report.md` and `demo/maturity_report.json`
 
@@ -52,6 +58,8 @@ python -m fund_exposure_lookthrough.cli build-packet --root .
 Portfolio CSV files use `portfolio_id,fund_id,fund_name,weight`. Fund constituent CSV files use `fund_id,asset_id,asset_name,weight,sector,region,asset_class`. Weights are decimal fractions, so `0.25` means 25%.
 
 Both fixture types may also include optional `source_date` and `source_url` columns. The calculation commands ignore those columns, while `fixture-doctor` uses them to flag stale, missing, malformed, or non-HTTP source metadata without fetching live data.
+
+The `direct_wrapper_*` examples show a direct-holding plus ETF-wrapper case without adding a second calculation model. Direct positions are represented as transparent one-constituent sleeves with a `1.00` constituent weight, so the same look-through engine and validators apply.
 
 ## Fixture Doctor
 
@@ -64,6 +72,12 @@ Both fixture types may also include optional `source_date` and `source_url` colu
 - optional source metadata freshness using `--as-of` and `--max-source-age-days`
 
 The default `--as-of 2026-07-14` keeps bundled demo outputs stable. Override it when reviewing a real fixture snapshot.
+
+## Showcase Commands
+
+- `case-gallery` compares the bundled current portfolio, bundled prior portfolio, and direct-holding/ETF-wrapper example in deterministic Markdown and JSON.
+- `visual-receipt` writes a deterministic SVG or HTML receipt with demo artifact routes and SHA-256 hashes.
+- `reviewer-scorecard` maps release evidence to a maturity rubric covering dependencies, fixtures, demos, docs, safety, and workflow absence.
 
 ## Safety Boundaries
 

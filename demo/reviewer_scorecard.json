@@ -1,0 +1,85 @@
+{
+  "max_score": 12,
+  "project": "fund-exposure-lookthrough",
+  "rubric": [
+    {
+      "evidence": [
+        "pyproject.toml"
+      ],
+      "max_score": 2,
+      "name": "Zero runtime dependencies",
+      "score": 2
+    },
+    {
+      "evidence": [
+        "examples/current_portfolio.csv",
+        "examples/prior_portfolio.csv",
+        "examples/direct_wrapper_portfolio.csv",
+        "src/fund_exposure_lookthrough/data/direct_wrapper_constituents.csv"
+      ],
+      "max_score": 2,
+      "name": "Packaged example fixtures",
+      "score": 2
+    },
+    {
+      "evidence": [
+        "demo/exposure_packet.md",
+        "demo/exposure_packet.json",
+        "demo/case_gallery.md",
+        "demo/case_gallery.json"
+      ],
+      "max_score": 2,
+      "name": "Deterministic Markdown and JSON demos",
+      "score": 2
+    },
+    {
+      "evidence": [
+        "src/fund_exposure_lookthrough/cli.py",
+        "src/fund_exposure_lookthrough/render.py"
+      ],
+      "max_score": 1,
+      "name": "Visual public receipt",
+      "score": 1
+    },
+    {
+      "evidence": [
+        "src/fund_exposure_lookthrough/doctor.py",
+        "tests/test_public_safety.py"
+      ],
+      "max_score": 2,
+      "name": "Fixture review and public scan",
+      "score": 2
+    },
+    {
+      "evidence": [
+        "README.md",
+        "CHANGELOG.md",
+        "RELEASE_NOTES.md",
+        "skills/agent/fund-exposure-lookthrough/SKILL.md"
+      ],
+      "max_score": 1,
+      "name": "Documentation and release notes",
+      "score": 1
+    },
+    {
+      "evidence": [
+        "no .github/workflows directory"
+      ],
+      "max_score": 1,
+      "name": "No workflow automation",
+      "score": 1
+    },
+    {
+      "evidence": [
+        "README.md",
+        "render.DISCLAIMER"
+      ],
+      "max_score": 1,
+      "name": "Static safety boundary",
+      "score": 1
+    }
+  ],
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "score": 12,
+  "version": "0.3.0"
+}

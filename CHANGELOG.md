@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 - 2026-07-14
+
+- Added `case-gallery` for deterministic Markdown/JSON public showcase comparisons.
+- Added `visual-receipt` for deterministic SVG or HTML demo artifact receipts with hashes and routes.
+- Added `reviewer-scorecard` for release evidence mapped to a maturity rubric.
+- Added direct-holding/ETF-wrapper example fixtures in source examples and package data.
+- Updated docs, skill guidance, tests, and demo artifacts for the public showcase layer.
+
 ## 0.2.0 - 2026-07-14
 
 - Added `fixture-doctor` for deterministic Markdown/JSON fixture quality reports.

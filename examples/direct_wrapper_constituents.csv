@@ -1,0 +1,7 @@
+fund_id,asset_id,asset_name,weight,sector,region,asset_class,source_date,source_url
+FND_ETF_WRAPPER,AST_ALPHA,Alpha Components,0.30,Technology,North America,Equity,2026-06-30,https://example.com/fixtures/direct-wrapper-constituents
+FND_ETF_WRAPPER,AST_BETA,Beta Stores,0.25,Consumer,North America,Equity,2026-06-30,https://example.com/fixtures/direct-wrapper-constituents
+FND_ETF_WRAPPER,AST_TBILL,Treasury Bill Basket,0.20,Government,North America,Fixed Income,2026-06-30,https://example.com/fixtures/direct-wrapper-constituents
+FND_ETF_WRAPPER,AST_IG,Investment Grade Credit Basket,0.25,Credit,North America,Fixed Income,2026-06-30,https://example.com/fixtures/direct-wrapper-constituents
+DIRECT_ALPHA,AST_ALPHA,Alpha Components,1.00,Technology,North America,Equity,2026-06-30,https://example.com/fixtures/direct-wrapper-constituents
+DIRECT_CASH,AST_CASH,Cash Sleeve,1.00,Cash,Global,Cash,2026-06-30,https://example.com/fixtures/direct-wrapper-constituents

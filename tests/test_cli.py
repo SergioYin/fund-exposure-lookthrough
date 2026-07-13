@@ -29,6 +29,7 @@ def copy_project_inputs(tmp_path: Path) -> None:
     shutil.copy(ROOT / "README.md", tmp_path / "README.md")
     shutil.copy(ROOT / "LICENSE", tmp_path / "LICENSE")
     shutil.copy(ROOT / "CHANGELOG.md", tmp_path / "CHANGELOG.md")
+    shutil.copy(ROOT / "RELEASE_NOTES.md", tmp_path / "RELEASE_NOTES.md")
     shutil.copytree(ROOT / "src", tmp_path / "src", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     shutil.copytree(ROOT / "skills", tmp_path / "skills")
 
@@ -42,6 +43,9 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         ("review-ledger",),
         ("fixture-doctor",),
         ("static-dashboard",),
+        ("case-gallery",),
+        ("reviewer-scorecard",),
+        ("visual-receipt",),
         ("release-manifest",),
         ("maturity-report",),
     ]
@@ -62,6 +66,11 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         "demo/fixture_doctor.md",
         "demo/fixture_doctor.json",
         "demo/static_dashboard.html",
+        "demo/case_gallery.md",
+        "demo/case_gallery.json",
+        "demo/reviewer_scorecard.md",
+        "demo/reviewer_scorecard.json",
+        "demo/visual_receipt.svg",
         "demo/release_manifest.md",
         "demo/release_manifest.json",
         "demo/maturity_report.md",
@@ -73,6 +82,18 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
     packet = json.loads((tmp_path / "demo/exposure_packet.json").read_text(encoding="utf-8"))
     assert packet["portfolio_id"] == "2026Q2_SAMPLE"
     assert packet["total_exposure"] == 1.0
+
+    gallery = json.loads((tmp_path / "demo/case_gallery.json").read_text(encoding="utf-8"))
+    assert [case["name"] for case in gallery["cases"]] == [
+        "Bundled current portfolio",
+        "Bundled prior portfolio",
+        "Direct holding and ETF wrapper",
+    ]
+    assert gallery["cases"][2]["portfolio_id"] == "2026Q2_DIRECT_WRAPPER"
+
+    scorecard = json.loads((tmp_path / "demo/reviewer_scorecard.json").read_text(encoding="utf-8"))
+    assert scorecard["score"] == scorecard["max_score"]
+    assert "Public Showcase Receipt" in (tmp_path / "demo/visual_receipt.svg").read_text(encoding="utf-8")
 
 
 def test_selfcheck_and_safety_language(tmp_path):
@@ -104,6 +125,11 @@ def test_package_data_fallback_without_examples_directory(tmp_path):
     assert packet["portfolio_id"] == "2026Q2_SAMPLE"
     assert packet["total_exposure"] == 1.0
 
+    gallery = run_cli(tmp_path, "case-gallery", "--root", ".")
+    assert gallery.returncode == 0, gallery.stderr
+    payload = json.loads((tmp_path / "demo/case_gallery.json").read_text(encoding="utf-8"))
+    assert payload["cases"][2]["portfolio_id"] == "2026Q2_DIRECT_WRAPPER"
+
 
 def test_deterministic_outputs_for_packet(tmp_path):
     copy_project_inputs(tmp_path)
@@ -117,6 +143,24 @@ def test_deterministic_outputs_for_packet(tmp_path):
 
     assert (tmp_path / "demo/exposure_packet.json").read_bytes() == first_json
     assert (tmp_path / "demo/exposure_packet.md").read_bytes() == first_md
+
+
+def test_deterministic_showcase_outputs(tmp_path):
+    copy_project_inputs(tmp_path)
+    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",)]:
+        first = run_cli(tmp_path, *command, "--root", ".")
+        assert first.returncode == 0, first.stderr
+    first_gallery = (tmp_path / "demo/case_gallery.json").read_bytes()
+    first_scorecard = (tmp_path / "demo/reviewer_scorecard.json").read_bytes()
+    first_receipt = (tmp_path / "demo/visual_receipt.svg").read_bytes()
+
+    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",)]:
+        second = run_cli(tmp_path, *command, "--root", ".")
+        assert second.returncode == 0, second.stderr
+
+    assert (tmp_path / "demo/case_gallery.json").read_bytes() == first_gallery
+    assert (tmp_path / "demo/reviewer_scorecard.json").read_bytes() == first_scorecard
+    assert (tmp_path / "demo/visual_receipt.svg").read_bytes() == first_receipt
 
 
 def test_fixture_doctor_reports_clean_examples(tmp_path):

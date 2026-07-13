@@ -1,0 +1,4 @@
+portfolio_id,fund_id,fund_name,weight,source_date,source_url
+2026Q2_DIRECT_WRAPPER,FND_ETF_WRAPPER,ETF Wrapper Sleeve,0.70,2026-06-30,https://example.com/fixtures/direct-wrapper-portfolio
+2026Q2_DIRECT_WRAPPER,DIRECT_ALPHA,Direct Alpha Components Holding,0.20,2026-06-30,https://example.com/fixtures/direct-wrapper-portfolio
+2026Q2_DIRECT_WRAPPER,DIRECT_CASH,Direct Cash Holding,0.10,2026-06-30,https://example.com/fixtures/direct-wrapper-portfolio
