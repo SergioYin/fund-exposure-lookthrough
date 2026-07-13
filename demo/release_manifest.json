@@ -1,9 +1,9 @@
 {
-  "file_count": 35,
+  "file_count": 38,
   "module": "fund_exposure_lookthrough",
   "project": "fund-exposure-lookthrough",
   "runtime_dependencies": "none",
   "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
-  "source_digest": "3e63e71051eba55fa3a74addaaab0f00216f6b4323d849c2ce071cd5a501f652",
-  "version": "0.1.0"
+  "source_digest": "62c7e1d189429fc5808b734c8d3f85c8c1cf4074cb8f2bb440dd2214efb4e6f5",
+  "version": "0.2.0"
 }

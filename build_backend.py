@@ -14,10 +14,10 @@ from pathlib import Path
 
 NAME = "fund-exposure-lookthrough"
 MODULE = "fund_exposure_lookthrough"
-VERSION = "0.1.0"
+ROOT = Path(__file__).resolve().parent
+VERSION = "0.2.0"
 DIST = f"{NAME}-{VERSION}"
 DIST_INFO = f"{NAME.replace('-', '_')}-{VERSION}.dist-info"
-ROOT = Path(__file__).resolve().parent
 
 
 def get_requires_for_build_wheel(config_settings=None):  # noqa: ANN001
@@ -84,6 +84,14 @@ def build_sdist(sdist_directory, config_settings=None):  # noqa: ANN001
         info.mtime = 0
         archive.addfile(info, io.BytesIO(data))
     return sdist_name
+
+
+def _read_version() -> str:
+    init_text = (ROOT / "src" / MODULE / "__init__.py").read_text(encoding="utf-8")
+    for line in init_text.splitlines():
+        if line.startswith("__version__"):
+            return line.split("=", 1)[1].strip().strip('"')
+    raise RuntimeError("could not read package version")
 
 
 def _metadata() -> str:

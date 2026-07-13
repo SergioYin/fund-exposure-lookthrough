@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-07-14",
+  "constituents": "examples/fund_constituents.csv",
+  "findings": [],
+  "max_source_age_days": 370,
+  "ok": true,
+  "portfolio": "examples/current_portfolio.csv",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "summary": {
+    "error": 0,
+    "info": 0,
+    "total": 0,
+    "warning": 0
+  },
+  "tool": "fund-exposure-lookthrough",
+  "version": "0.2.0"
+}

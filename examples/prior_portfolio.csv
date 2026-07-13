@@ -1,4 +1,4 @@
-portfolio_id,fund_id,fund_name,weight
-2026Q1_SAMPLE,FND_CORE,Core Equity Index,0.50
-2026Q1_SAMPLE,FND_GLOBAL,Global Opportunity Fund,0.30
-2026Q1_SAMPLE,FND_BOND,Short Duration Bond Fund,0.20
+portfolio_id,fund_id,fund_name,weight,source_date,source_url
+2026Q1_SAMPLE,FND_CORE,Core Equity Index,0.50,2026-03-31,https://example.com/fixtures/prior-portfolio
+2026Q1_SAMPLE,FND_GLOBAL,Global Opportunity Fund,0.30,2026-03-31,https://example.com/fixtures/prior-portfolio
+2026Q1_SAMPLE,FND_BOND,Short Duration Bond Fund,0.20,2026-03-31,https://example.com/fixtures/prior-portfolio

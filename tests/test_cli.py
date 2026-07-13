@@ -40,6 +40,7 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         ("compare-history",),
         ("overlap-matrix",),
         ("review-ledger",),
+        ("fixture-doctor",),
         ("static-dashboard",),
         ("release-manifest",),
         ("maturity-report",),
@@ -58,6 +59,8 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         "demo/overlap_matrix.json",
         "demo/review_ledger.md",
         "demo/review_ledger.json",
+        "demo/fixture_doctor.md",
+        "demo/fixture_doctor.json",
         "demo/static_dashboard.html",
         "demo/release_manifest.md",
         "demo/release_manifest.json",
@@ -114,3 +117,58 @@ def test_deterministic_outputs_for_packet(tmp_path):
 
     assert (tmp_path / "demo/exposure_packet.json").read_bytes() == first_json
     assert (tmp_path / "demo/exposure_packet.md").read_bytes() == first_md
+
+
+def test_fixture_doctor_reports_clean_examples(tmp_path):
+    copy_project_inputs(tmp_path)
+    result = run_cli(tmp_path, "fixture-doctor", "--root", ".")
+
+    assert result.returncode == 0, result.stderr
+    payload = json.loads((tmp_path / "demo/fixture_doctor.json").read_text(encoding="utf-8"))
+    assert payload["ok"] is True
+    assert payload["summary"] == {"error": 0, "info": 0, "total": 0, "warning": 0}
+    assert "No fixture quality findings" in (tmp_path / "demo/fixture_doctor.md").read_text(encoding="utf-8")
+
+
+def test_fixture_doctor_flags_bad_fixtures(tmp_path):
+    examples = tmp_path / "examples"
+    examples.mkdir()
+    (examples / "current_portfolio.csv").write_text(
+        "\n".join(
+            [
+                "portfolio_id,fund_id,fund_name,weight,source_date,source_url",
+                "BAD,FND_CORE,Core,0.60,2024-01-01,https://example.com/core",
+                "BAD,FND_CORE,Core duplicate,0.20,2024-01-01,https://example.com/core",
+                "BAD,FND_MISSING,Missing Fund,0.10,2024-01-01,not-a-url",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (examples / "fund_constituents.csv").write_text(
+        "\n".join(
+            [
+                "fund_id,asset_id,asset_name,weight,sector,region,asset_class,source_date,source_url",
+                "FND_CORE,AST_ALPHA,Alpha,0.40,Technology,North America,Equity,2024-01-01,https://example.com/constituents",
+                "FND_CORE,AST_ALPHA,Alpha duplicate,0.40,Technology,North America,Equity,2024-01-01,https://example.com/constituents",
+                "FND_ORPHAN,AST_BETA,Beta,1.00,Consumer,Europe,Equity,2024-01-01,",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_cli(tmp_path, "fixture-doctor", "--root", ".", "--as-of", "2026-07-14", "--max-source-age-days", "370")
+
+    assert result.returncode == 1
+    payload = json.loads((tmp_path / "demo/fixture_doctor.json").read_text(encoding="utf-8"))
+    codes = {item["code"] for item in payload["findings"]}
+    assert "portfolio_weight_total" in codes
+    assert "missing_constituents" in codes
+    assert "constituent_weight_total" in codes
+    assert "portfolio_duplicate_fund" in codes
+    assert "constituent_duplicate_asset" in codes
+    assert "unheld_constituent_fund" in codes
+    assert "stale_source_date" in codes
+    assert "missing_source_url" in codes
+    assert "non_http_source_url" in codes

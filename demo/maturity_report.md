@@ -6,6 +6,7 @@ Research use only. This static report is not investment advice, does not recomme
 | --- | --- |
 | Source package | ready |
 | CLI routes | ready |
+| Fixture doctor | ready |
 | Tests | ready |
 | Bundled examples | ready |
 | Deterministic demo artifacts | ready |

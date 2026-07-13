@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from . import __version__
+from .doctor import diagnose_fixtures, fixture_doctor_markdown, parse_iso_date
 from .engine import compare_exposures, concentration_flags, group_exposure, lookthrough, overlap_matrix, validate_inputs
 from .io import read_constituents, read_holdings, write_json, write_text
 from .render import (
@@ -69,6 +70,14 @@ def build_parser() -> argparse.ArgumentParser:
     ledger.add_argument("--out-json", default="demo/review_ledger.json")
     ledger.set_defaults(func=cmd_review_ledger)
 
+    doctor = sub.add_parser("fixture-doctor", help="Validate portfolio and constituent fixtures and write Markdown/JSON reports.")
+    _add_input_args(doctor)
+    doctor.add_argument("--as-of", default="2026-07-14", help="Deterministic ISO date used for source metadata freshness checks.")
+    doctor.add_argument("--max-source-age-days", type=int, default=370)
+    doctor.add_argument("--out-md", default="demo/fixture_doctor.md")
+    doctor.add_argument("--out-json", default="demo/fixture_doctor.json")
+    doctor.set_defaults(func=cmd_fixture_doctor)
+
     dashboard = sub.add_parser("static-dashboard", help="Build a no-JavaScript static HTML dashboard.")
     _add_input_args(dashboard)
     dashboard.add_argument("--out-html", default="demo/static_dashboard.html")
@@ -78,7 +87,7 @@ def build_parser() -> argparse.ArgumentParser:
     selfcheck.add_argument("--root", default=".")
     selfcheck.set_defaults(func=cmd_selfcheck)
 
-    public_scan = sub.add_parser("public-scan", help="Scan text files for private names, credentials, and generated artifacts.")
+    public_scan = sub.add_parser("public-scan", help="Scan publishable text files for private names and credentials.")
     public_scan.add_argument("--root", default=".")
     public_scan.set_defaults(func=cmd_public_scan)
 
@@ -142,6 +151,22 @@ def cmd_review_ledger(args: argparse.Namespace) -> int:
     write_json(root / args.out_json, payload)
     print(f"wrote {root / args.out_md} and {root / args.out_json}")
     return 0
+
+
+def cmd_fixture_doctor(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    if args.max_source_age_days < 0:
+        raise ValueError("--max-source-age-days must be non-negative")
+    payload = diagnose_fixtures(
+        _resolve_input(root, args.portfolio),
+        _resolve_input(root, args.constituents),
+        parse_iso_date(args.as_of),
+        args.max_source_age_days,
+    )
+    write_text(root / args.out_md, fixture_doctor_markdown(payload))
+    write_json(root / args.out_json, payload)
+    print(f"wrote {root / args.out_md} and {root / args.out_json}")
+    return 0 if payload["ok"] else 1
 
 
 def cmd_static_dashboard(args: argparse.Namespace) -> int:
@@ -213,6 +238,7 @@ def cmd_maturity_report(args: argparse.Namespace) -> int:
     checks = {
         "Source package": (root / "src/fund_exposure_lookthrough").exists(),
         "CLI routes": (root / "src/fund_exposure_lookthrough/cli.py").exists(),
+        "Fixture doctor": (root / "src/fund_exposure_lookthrough/doctor.py").exists(),
         "Tests": (root / "tests").exists(),
         "Bundled examples": (root / "examples").exists(),
         "Deterministic demo artifacts": (root / "demo").exists(),
@@ -283,7 +309,6 @@ def public_hygiene_findings(root: Path) -> list[str]:
     findings: list[str] = []
     for path in sorted(root.rglob("*")):
         if path.is_dir() and path.name in generated_parts:
-            findings.append(f"{path.relative_to(root)} is a generated artifact directory")
             continue
         if not path.is_file() or not _is_text_path(path):
             continue

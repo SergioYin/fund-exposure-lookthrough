@@ -1,5 +1,19 @@
 # Release Notes
 
+## 0.2.0
+
+Adds substantial fixture quality tooling with the new `fixture-doctor` command. The command validates static portfolio and constituent CSVs, writes Markdown and JSON reports, and returns a non-zero exit code when review findings are present.
+
+New checks:
+
+- missing portfolio funds in constituent fixtures
+- constituent funds not held in the portfolio
+- portfolio and per-fund constituent weights that do not sum to `1.0000`
+- duplicate portfolio fund rows and duplicate fund/asset rows
+- optional `source_date` and `source_url` metadata freshness and shape
+
+The release preserves zero runtime dependencies, deterministic demo outputs, no workflow files, no live data fetching, no broker connectivity, and no financial advice surface.
+
 ## 0.1.0
 
 First public release of `fund-exposure-lookthrough`.
@@ -10,6 +24,7 @@ Included commands:
 - `compare-history`
 - `overlap-matrix`
 - `review-ledger`
+- `fixture-doctor`
 - `static-dashboard`
 - `selfcheck`
 - `release-manifest`
