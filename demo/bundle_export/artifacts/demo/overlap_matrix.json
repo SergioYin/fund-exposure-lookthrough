@@ -1,0 +1,50 @@
+{
+  "rows": [
+    {
+      "left_fund_id": "FND_BOND",
+      "overlap": 1.0,
+      "right_fund_id": "FND_BOND"
+    },
+    {
+      "left_fund_id": "FND_BOND",
+      "overlap": 0.15,
+      "right_fund_id": "FND_CORE"
+    },
+    {
+      "left_fund_id": "FND_BOND",
+      "overlap": 0,
+      "right_fund_id": "FND_GLOBAL"
+    },
+    {
+      "left_fund_id": "FND_CORE",
+      "overlap": 0.15,
+      "right_fund_id": "FND_BOND"
+    },
+    {
+      "left_fund_id": "FND_CORE",
+      "overlap": 1.0,
+      "right_fund_id": "FND_CORE"
+    },
+    {
+      "left_fund_id": "FND_CORE",
+      "overlap": 0.16,
+      "right_fund_id": "FND_GLOBAL"
+    },
+    {
+      "left_fund_id": "FND_GLOBAL",
+      "overlap": 0,
+      "right_fund_id": "FND_BOND"
+    },
+    {
+      "left_fund_id": "FND_GLOBAL",
+      "overlap": 0.16,
+      "right_fund_id": "FND_CORE"
+    },
+    {
+      "left_fund_id": "FND_GLOBAL",
+      "overlap": 1.0,
+      "right_fund_id": "FND_GLOBAL"
+    }
+  ],
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data."
+}

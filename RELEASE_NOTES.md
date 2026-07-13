@@ -1,5 +1,15 @@
 # Release Notes
 
+## 0.4.0
+
+Adds an operator workflow layer for portable public review:
+
+- `bundle-export` copies selected deterministic demo artifacts into a portable directory and writes Markdown/JSON manifests with hashes.
+- `asset-health` summarizes CLI command coverage, artifact presence, packaged CSV data, and static safety boundaries.
+- `readme-snippet` generates a concise Markdown quickstart/demo snippet from the artifacts currently present.
+
+The release also updates generated demo outputs, tests, README guidance, skill guidance, package version metadata, and the local build backend. It preserves zero runtime dependencies, no workflow files, no live data fetching, no broker connectivity, and no financial advice surface.
+
 ## 0.3.0
 
 Adds a richer public showcase layer for deterministic review:

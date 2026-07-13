@@ -18,6 +18,9 @@ PYTHONPATH=src python -m fund_exposure_lookthrough.cli static-dashboard --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli case-gallery --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli reviewer-scorecard --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli visual-receipt --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli readme-snippet --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli asset-health --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root .
 PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .
 PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .
 ```
@@ -52,6 +55,9 @@ python -m fund_exposure_lookthrough.cli build-packet --root .
 - `demo/visual_receipt.svg`
 - `demo/release_manifest.md` and `demo/release_manifest.json`
 - `demo/maturity_report.md` and `demo/maturity_report.json`
+- `demo/readme_snippet.md`
+- `demo/asset_health.md` and `demo/asset_health.json`
+- `demo/bundle_export/manifest.md`, `demo/bundle_export/manifest.json`, and copied demo artifacts under `demo/bundle_export/artifacts/`
 
 ## Input Format
 
@@ -78,6 +84,12 @@ The default `--as-of 2026-07-14` keeps bundled demo outputs stable. Override it 
 - `case-gallery` compares the bundled current portfolio, bundled prior portfolio, and direct-holding/ETF-wrapper example in deterministic Markdown and JSON.
 - `visual-receipt` writes a deterministic SVG or HTML receipt with demo artifact routes and SHA-256 hashes.
 - `reviewer-scorecard` maps release evidence to a maturity rubric covering dependencies, fixtures, demos, docs, safety, and workflow absence.
+
+## Operator Workflow
+
+- `asset-health` writes Markdown and JSON status for CLI command coverage, demo artifact presence, packaged CSV data, and static safety boundaries.
+- `readme-snippet` writes a concise Markdown quickstart/demo block based on artifacts currently present in `demo/`.
+- `bundle-export` copies selected demo artifacts into `demo/bundle_export/artifacts/` and writes deterministic Markdown/JSON manifests for portable review.
 
 ## Safety Boundaries
 

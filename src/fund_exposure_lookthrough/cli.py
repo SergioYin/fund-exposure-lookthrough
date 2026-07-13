@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import sys
 from importlib import resources
 from pathlib import Path
@@ -124,6 +125,22 @@ def build_parser() -> argparse.ArgumentParser:
     maturity.add_argument("--out-md", default="demo/maturity_report.md")
     maturity.add_argument("--out-json", default="demo/maturity_report.json")
     maturity.set_defaults(func=cmd_maturity_report)
+
+    bundle = sub.add_parser("bundle-export", help="Copy selected demo artifacts into a deterministic portable directory.")
+    bundle.add_argument("--root", default=".")
+    bundle.add_argument("--out-dir", default="demo/bundle_export")
+    bundle.set_defaults(func=cmd_bundle_export)
+
+    health = sub.add_parser("asset-health", help="Summarize command coverage, artifact presence, package data, and safety boundaries.")
+    health.add_argument("--root", default=".")
+    health.add_argument("--out-md", default="demo/asset_health.md")
+    health.add_argument("--out-json", default="demo/asset_health.json")
+    health.set_defaults(func=cmd_asset_health)
+
+    snippet = sub.add_parser("readme-snippet", help="Generate a concise Markdown quickstart and demo snippet from current artifacts.")
+    snippet.add_argument("--root", default=".")
+    snippet.add_argument("--out-md", default="demo/readme_snippet.md")
+    snippet.set_defaults(func=cmd_readme_snippet)
     return parser
 
 
@@ -317,6 +334,7 @@ def cmd_release_manifest(args: argparse.Namespace) -> int:
         for path in root.rglob("*")
         if path.is_file()
         and not any(part in {".git", ".pytest_cache", "dist", "build", "__pycache__"} for part in path.parts)
+        and not str(path.relative_to(root)).startswith("demo/bundle_export/")
         and str(path.relative_to(root)) not in {args.out_md, args.out_json}
     )
     payload: dict[str, Any] = {
@@ -355,6 +373,86 @@ def cmd_maturity_report(args: argparse.Namespace) -> int:
     write_text(root / args.out_md, maturity_markdown(payload))
     write_json(root / args.out_json, payload)
     print(f"wrote {root / args.out_md} and {root / args.out_json}")
+    return 0
+
+
+def cmd_bundle_export(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    out_dir = root / args.out_dir
+    if out_dir.resolve() == root.resolve():
+        raise ValueError("--out-dir must not be the project root")
+    if out_dir.exists() and not out_dir.is_dir():
+        raise ValueError("--out-dir must be a directory path")
+
+    artifacts = [_artifact_row(root, rel) for rel in _bundle_artifacts()]
+    if out_dir.exists():
+        shutil.rmtree(out_dir)
+    (out_dir / "artifacts").mkdir(parents=True, exist_ok=True)
+
+    copied: list[dict[str, Any]] = []
+    for row in artifacts:
+        rel = row["route"]
+        source = root / rel
+        if not source.exists():
+            continue
+        target = out_dir / "artifacts" / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+        copied.append({**row, "bundle_path": str(Path("artifacts") / rel)})
+
+    payload = {
+        "project": "fund-exposure-lookthrough",
+        "version": __version__,
+        "safety": DISCLAIMER,
+        "artifact_count": len(copied),
+        "artifacts": copied,
+        "missing": [row["route"] for row in artifacts if not row["exists"]],
+    }
+    write_json(out_dir / "manifest.json", payload)
+    write_text(out_dir / "manifest.md", _bundle_manifest_markdown(payload))
+    print(f"wrote {out_dir}")
+    return 0
+
+
+def cmd_asset_health(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    command_names = _command_names()
+    documented = _documented_commands(root)
+    artifact_rows = [_artifact_row(root, rel) for rel in _operator_artifacts()]
+    package_data = _package_data_status(root)
+    safety = {
+        "disclaimer_has_no_advice": "not investment advice" in DISCLAIMER.lower(),
+        "no_live_data_statement": _file_contains(root / "README.md", "does not fetch live data"),
+        "no_broker_statement": _file_contains(root / "README.md", "connect to brokers"),
+        "no_workflows": not (root / ".github" / "workflows").exists(),
+        "public_scan_clean": not public_hygiene_findings(root),
+    }
+    payload = {
+        "project": "fund-exposure-lookthrough",
+        "version": __version__,
+        "safety": DISCLAIMER,
+        "commands": [{"name": name, "documented": name in documented} for name in command_names],
+        "artifacts": artifact_rows,
+        "package_data": package_data,
+        "safety_boundaries": safety,
+        "ok": all(row["exists"] for row in artifact_rows) and all(package_data.values()) and all(safety.values()),
+    }
+    write_text(root / args.out_md, _asset_health_markdown(payload))
+    write_json(root / args.out_json, payload)
+    print(f"wrote {root / args.out_md} and {root / args.out_json}")
+    return 0 if payload["ok"] else 1
+
+
+def cmd_readme_snippet(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    payload = {
+        "project": "fund-exposure-lookthrough",
+        "version": __version__,
+        "safety": DISCLAIMER,
+        "artifacts": [_artifact_row(root, rel) for rel in _snippet_artifacts()],
+    }
+    write_text(root / args.out_md, _readme_snippet_markdown(payload))
+    print(f"wrote {root / args.out_md}")
     return 0
 
 
@@ -423,6 +521,52 @@ def _receipt_artifacts(out_rel: str) -> list[str]:
     return [route for route in routes if route != out_rel]
 
 
+def _bundle_artifacts() -> list[str]:
+    return [
+        "demo/exposure_packet.md",
+        "demo/exposure_packet.json",
+        "demo/history_comparison.md",
+        "demo/history_comparison.json",
+        "demo/overlap_matrix.md",
+        "demo/overlap_matrix.json",
+        "demo/review_ledger.md",
+        "demo/review_ledger.json",
+        "demo/fixture_doctor.md",
+        "demo/fixture_doctor.json",
+        "demo/static_dashboard.html",
+        "demo/case_gallery.md",
+        "demo/case_gallery.json",
+        "demo/reviewer_scorecard.md",
+        "demo/reviewer_scorecard.json",
+        "demo/visual_receipt.svg",
+        "demo/release_manifest.md",
+        "demo/release_manifest.json",
+        "demo/maturity_report.md",
+        "demo/maturity_report.json",
+        "demo/asset_health.md",
+        "demo/asset_health.json",
+        "demo/readme_snippet.md",
+    ]
+
+
+def _operator_artifacts() -> list[str]:
+    return [
+        rel
+        for rel in _bundle_artifacts()
+        if rel not in {"demo/asset_health.md", "demo/asset_health.json", "demo/bundle_export/manifest.json"}
+    ]
+
+
+def _snippet_artifacts() -> list[str]:
+    return [
+        "demo/exposure_packet.md",
+        "demo/static_dashboard.html",
+        "demo/case_gallery.md",
+        "demo/visual_receipt.svg",
+        "demo/asset_health.md",
+    ]
+
+
 def _artifact_row(root: Path, rel: str) -> dict[str, Any]:
     path = root / rel
     return {"route": rel, "exists": path.exists(), "sha256": _file_digest(path) if path.exists() else ""}
@@ -434,6 +578,126 @@ def _file_digest(path: Path) -> str:
 
 def _existing(root: Path, paths: list[str]) -> list[str]:
     return [path for path in paths if (root / path).exists()]
+
+
+def _command_names() -> list[str]:
+    return [
+        "build-packet",
+        "compare-history",
+        "overlap-matrix",
+        "review-ledger",
+        "fixture-doctor",
+        "static-dashboard",
+        "case-gallery",
+        "visual-receipt",
+        "reviewer-scorecard",
+        "selfcheck",
+        "public-scan",
+        "release-manifest",
+        "maturity-report",
+        "bundle-export",
+        "asset-health",
+        "readme-snippet",
+    ]
+
+
+def _documented_commands(root: Path) -> set[str]:
+    text = ""
+    for rel in ["README.md", "CHANGELOG.md", "RELEASE_NOTES.md", "skills/agent/fund-exposure-lookthrough/SKILL.md"]:
+        path = root / rel
+        if path.exists():
+            text += path.read_text(encoding="utf-8", errors="ignore") + "\n"
+    return {name for name in _command_names() if name in text}
+
+
+def _package_data_status(root: Path) -> dict[str, bool]:
+    pyproject = root / "pyproject.toml"
+    data_files = [
+        "src/fund_exposure_lookthrough/data/current_portfolio.csv",
+        "src/fund_exposure_lookthrough/data/prior_portfolio.csv",
+        "src/fund_exposure_lookthrough/data/fund_constituents.csv",
+        "src/fund_exposure_lookthrough/data/direct_wrapper_portfolio.csv",
+        "src/fund_exposure_lookthrough/data/direct_wrapper_constituents.csv",
+    ]
+    return {
+        "pyproject_declares_csv_package_data": _file_contains(pyproject, 'fund_exposure_lookthrough = ["data/*.csv"]'),
+        "bundled_csv_files_present": all((root / rel).exists() for rel in data_files),
+        "runtime_dependencies_empty": _pyproject_has_no_runtime_deps(pyproject),
+    }
+
+
+def _file_contains(path: Path, needle: str) -> bool:
+    return path.exists() and needle.lower() in path.read_text(encoding="utf-8", errors="ignore").lower()
+
+
+def _bundle_manifest_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# Bundle Export Manifest",
+        "",
+        DISCLAIMER,
+        "",
+        f"- project: {payload['project']}",
+        f"- version: {payload['version']}",
+        f"- artifact_count: {payload['artifact_count']}",
+        "",
+        "| Artifact | SHA-256 | Bundle path |",
+        "| --- | --- | --- |",
+    ]
+    for row in payload["artifacts"]:
+        lines.append(f"| {row['route']} | `{row['sha256']}` | `{row['bundle_path']}` |")
+    if payload["missing"]:
+        lines.extend(["", "## Missing", ""])
+        lines.extend(f"- {rel}" for rel in payload["missing"])
+    return "\n".join(lines) + "\n"
+
+
+def _asset_health_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# Asset Health",
+        "",
+        DISCLAIMER,
+        "",
+        f"Status: {'ready' if payload['ok'] else 'review required'}",
+        "",
+        "## Command Coverage",
+        "",
+        "| Command | Documented |",
+        "| --- | --- |",
+    ]
+    for row in payload["commands"]:
+        lines.append(f"| `{row['name']}` | {'yes' if row['documented'] else 'no'} |")
+    lines.extend(["", "## Artifact Presence", "", "| Artifact | Status | SHA-256 prefix |", "| --- | --- | --- |"])
+    for row in payload["artifacts"]:
+        lines.append(f"| {row['route']} | {'ready' if row['exists'] else 'missing'} | `{row['sha256'][:16] if row['sha256'] else ''}` |")
+    lines.extend(["", "## Package Data", ""])
+    lines.extend(f"- {key}: {'ready' if value else 'missing'}" for key, value in payload["package_data"].items())
+    lines.extend(["", "## Safety Boundaries", ""])
+    lines.extend(f"- {key}: {'ready' if value else 'missing'}" for key, value in payload["safety_boundaries"].items())
+    return "\n".join(lines) + "\n"
+
+
+def _readme_snippet_markdown(payload: dict[str, Any]) -> str:
+    ready = [row for row in payload["artifacts"] if row["exists"]]
+    lines = [
+        "## Quickstart Demo",
+        "",
+        "```bash",
+        "PYTHONPATH=src python -m fund_exposure_lookthrough.cli build-packet --root .",
+        "PYTHONPATH=src python -m fund_exposure_lookthrough.cli static-dashboard --root .",
+        "PYTHONPATH=src python -m fund_exposure_lookthrough.cli asset-health --root .",
+        "PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root .",
+        "```",
+        "",
+        DISCLAIMER,
+        "",
+        "Generated demo artifacts:",
+    ]
+    lines.extend(f"- `{row['route']}`" for row in ready)
+    missing = [row["route"] for row in payload["artifacts"] if not row["exists"]]
+    if missing:
+        lines.extend(["", "Artifacts not present yet:"])
+        lines.extend(f"- `{rel}`" for rel in missing)
+    return "\n".join(lines) + "\n"
 
 
 def _is_text_path(path: Path) -> bool:

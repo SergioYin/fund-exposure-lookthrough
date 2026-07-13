@@ -48,6 +48,9 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         ("visual-receipt",),
         ("release-manifest",),
         ("maturity-report",),
+        ("readme-snippet",),
+        ("asset-health",),
+        ("bundle-export",),
     ]
 
     for command in commands:
@@ -75,6 +78,12 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         "demo/release_manifest.json",
         "demo/maturity_report.md",
         "demo/maturity_report.json",
+        "demo/readme_snippet.md",
+        "demo/bundle_export/manifest.md",
+        "demo/bundle_export/manifest.json",
+        "demo/bundle_export/artifacts/demo/exposure_packet.md",
+        "demo/asset_health.md",
+        "demo/asset_health.json",
     ]
     for rel in expected:
         assert (tmp_path / rel).exists(), rel
@@ -94,6 +103,17 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
     scorecard = json.loads((tmp_path / "demo/reviewer_scorecard.json").read_text(encoding="utf-8"))
     assert scorecard["score"] == scorecard["max_score"]
     assert "Public Showcase Receipt" in (tmp_path / "demo/visual_receipt.svg").read_text(encoding="utf-8")
+
+    bundle = json.loads((tmp_path / "demo/bundle_export/manifest.json").read_text(encoding="utf-8"))
+    assert bundle["artifact_count"] >= 20
+    assert bundle["missing"] == []
+
+    health = json.loads((tmp_path / "demo/asset_health.json").read_text(encoding="utf-8"))
+    assert health["ok"] is True
+    assert {row["name"] for row in health["commands"]} >= {"bundle-export", "asset-health", "readme-snippet"}
+    assert all(health["package_data"].values())
+    assert all(health["safety_boundaries"].values())
+    assert "Quickstart Demo" in (tmp_path / "demo/readme_snippet.md").read_text(encoding="utf-8")
 
 
 def test_selfcheck_and_safety_language(tmp_path):
@@ -147,20 +167,24 @@ def test_deterministic_outputs_for_packet(tmp_path):
 
 def test_deterministic_showcase_outputs(tmp_path):
     copy_project_inputs(tmp_path)
-    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",)]:
+    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("readme-snippet",), ("bundle-export",)]:
         first = run_cli(tmp_path, *command, "--root", ".")
         assert first.returncode == 0, first.stderr
     first_gallery = (tmp_path / "demo/case_gallery.json").read_bytes()
     first_scorecard = (tmp_path / "demo/reviewer_scorecard.json").read_bytes()
     first_receipt = (tmp_path / "demo/visual_receipt.svg").read_bytes()
+    first_snippet = (tmp_path / "demo/readme_snippet.md").read_bytes()
+    first_bundle = (tmp_path / "demo/bundle_export/manifest.json").read_bytes()
 
-    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",)]:
+    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("readme-snippet",), ("bundle-export",)]:
         second = run_cli(tmp_path, *command, "--root", ".")
         assert second.returncode == 0, second.stderr
 
     assert (tmp_path / "demo/case_gallery.json").read_bytes() == first_gallery
     assert (tmp_path / "demo/reviewer_scorecard.json").read_bytes() == first_scorecard
     assert (tmp_path / "demo/visual_receipt.svg").read_bytes() == first_receipt
+    assert (tmp_path / "demo/readme_snippet.md").read_bytes() == first_snippet
+    assert (tmp_path / "demo/bundle_export/manifest.json").read_bytes() == first_bundle
 
 
 def test_fixture_doctor_reports_clean_examples(tmp_path):

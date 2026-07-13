@@ -4,6 +4,6 @@
   "project": "fund-exposure-lookthrough",
   "runtime_dependencies": "none",
   "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
-  "source_digest": "9c6fd59cb8b13e04333065a263cc6a6690a4d00e5f0b2cef4d4af712dc8f7c33",
+  "source_digest": "263975226d6954e59f05e2df49b5fc2ba1e09faa44ae533addc74ad8f095cfd8",
   "version": "0.4.0"
 }
