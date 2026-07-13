@@ -15,7 +15,7 @@ from pathlib import Path
 NAME = "fund-exposure-lookthrough"
 MODULE = "fund_exposure_lookthrough"
 ROOT = Path(__file__).resolve().parent
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 DIST = f"{NAME}-{VERSION}"
 DIST_INFO = f"{NAME.replace('-', '_')}-{VERSION}.dist-info"
 

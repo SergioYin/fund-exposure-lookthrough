@@ -137,6 +137,24 @@ def build_parser() -> argparse.ArgumentParser:
     health.add_argument("--out-json", default="demo/asset_health.json")
     health.set_defaults(func=cmd_asset_health)
 
+    catalog = sub.add_parser("artifact-catalog", help="Catalog demo artifacts with type, size, SHA-256, and regeneration command.")
+    catalog.add_argument("--root", default=".")
+    catalog.add_argument("--out-md", default="demo/artifact_catalog.md")
+    catalog.add_argument("--out-json", default="demo/artifact_catalog.json")
+    catalog.set_defaults(func=cmd_artifact_catalog)
+
+    matrix = sub.add_parser("command-matrix", help="Write a Markdown/JSON matrix of CLI routes, inputs, outputs, and exit-code behavior.")
+    matrix.add_argument("--root", default=".")
+    matrix.add_argument("--out-md", default="demo/command_matrix.md")
+    matrix.add_argument("--out-json", default="demo/command_matrix.json")
+    matrix.set_defaults(func=cmd_command_matrix)
+
+    checklist = sub.add_parser("release-checklist", help="Write a release owner checklist for tests, package, wheel smoke, public scan, and no-advice boundaries.")
+    checklist.add_argument("--root", default=".")
+    checklist.add_argument("--out-md", default="demo/release_checklist.md")
+    checklist.add_argument("--out-json", default="demo/release_checklist.json")
+    checklist.set_defaults(func=cmd_release_checklist)
+
     snippet = sub.add_parser("readme-snippet", help="Generate a concise Markdown quickstart and demo snippet from current artifacts.")
     snippet.add_argument("--root", default=".")
     snippet.add_argument("--out-md", default="demo/readme_snippet.md")
@@ -456,6 +474,59 @@ def cmd_readme_snippet(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_artifact_catalog(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    excluded = {args.out_md, args.out_json}
+    artifacts = [
+        _catalog_artifact_row(root, rel)
+        for rel in _demo_artifacts(root)
+        if rel not in excluded
+    ]
+    payload = {
+        "project": "fund-exposure-lookthrough",
+        "version": __version__,
+        "safety": DISCLAIMER,
+        "artifact_count": len(artifacts),
+        "artifacts": artifacts,
+    }
+    write_text(root / args.out_md, _artifact_catalog_markdown(payload))
+    write_json(root / args.out_json, payload)
+    print(f"wrote {root / args.out_md} and {root / args.out_json}")
+    return 0
+
+
+def cmd_command_matrix(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    specs = _command_specs()
+    payload = {
+        "project": "fund-exposure-lookthrough",
+        "version": __version__,
+        "safety": DISCLAIMER,
+        "command_count": len(specs),
+        "commands": specs,
+    }
+    write_text(root / args.out_md, _command_matrix_markdown(payload))
+    write_json(root / args.out_json, payload)
+    print(f"wrote {root / args.out_md} and {root / args.out_json}")
+    return 0
+
+
+def cmd_release_checklist(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    checks = _release_checks(root)
+    payload = {
+        "project": "fund-exposure-lookthrough",
+        "version": __version__,
+        "safety": DISCLAIMER,
+        "ok": all(item["ready"] for item in checks),
+        "checks": checks,
+    }
+    write_text(root / args.out_md, _release_checklist_markdown(payload))
+    write_json(root / args.out_json, payload)
+    print(f"wrote {root / args.out_md} and {root / args.out_json}")
+    return 0 if payload["ok"] else 1
+
+
 def _add_input_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--root", default=".")
     parser.add_argument("--portfolio", default="examples/current_portfolio.csv")
@@ -545,6 +616,12 @@ def _bundle_artifacts() -> list[str]:
         "demo/maturity_report.json",
         "demo/asset_health.md",
         "demo/asset_health.json",
+        "demo/artifact_catalog.md",
+        "demo/artifact_catalog.json",
+        "demo/command_matrix.md",
+        "demo/command_matrix.json",
+        "demo/release_checklist.md",
+        "demo/release_checklist.json",
         "demo/readme_snippet.md",
     ]
 
@@ -553,7 +630,14 @@ def _operator_artifacts() -> list[str]:
     return [
         rel
         for rel in _bundle_artifacts()
-        if rel not in {"demo/asset_health.md", "demo/asset_health.json", "demo/bundle_export/manifest.json"}
+        if rel
+        not in {
+            "demo/asset_health.md",
+            "demo/asset_health.json",
+            "demo/artifact_catalog.md",
+            "demo/artifact_catalog.json",
+            "demo/bundle_export/manifest.json",
+        }
     ]
 
 
@@ -581,23 +665,147 @@ def _existing(root: Path, paths: list[str]) -> list[str]:
 
 
 def _command_names() -> list[str]:
+    return [spec["name"] for spec in _command_specs()]
+
+
+def _command_specs() -> list[dict[str, Any]]:
+    common_inputs = ["--root", "--portfolio", "--constituents"]
+    static_exit = "0 on success; 2 for file or validation errors handled by the CLI wrapper"
+    report_exit = "0 when generated and checks pass; 1 when findings require review; 2 for file or validation errors"
     return [
-        "build-packet",
-        "compare-history",
-        "overlap-matrix",
-        "review-ledger",
-        "fixture-doctor",
-        "static-dashboard",
-        "case-gallery",
-        "visual-receipt",
-        "reviewer-scorecard",
-        "selfcheck",
-        "public-scan",
-        "release-manifest",
-        "maturity-report",
-        "bundle-export",
-        "asset-health",
-        "readme-snippet",
+        {
+            "name": "build-packet",
+            "inputs": common_inputs + ["--out-md", "--out-json"],
+            "outputs": ["demo/exposure_packet.md", "demo/exposure_packet.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli build-packet --root .",
+        },
+        {
+            "name": "compare-history",
+            "inputs": ["--root", "--current", "--prior", "--constituents", "--out-md", "--out-json"],
+            "outputs": ["demo/history_comparison.md", "demo/history_comparison.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli compare-history --root .",
+        },
+        {
+            "name": "overlap-matrix",
+            "inputs": common_inputs + ["--out-md", "--out-json"],
+            "outputs": ["demo/overlap_matrix.md", "demo/overlap_matrix.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli overlap-matrix --root .",
+        },
+        {
+            "name": "review-ledger",
+            "inputs": common_inputs + ["--threshold", "--out-md", "--out-json"],
+            "outputs": ["demo/review_ledger.md", "demo/review_ledger.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli review-ledger --root .",
+        },
+        {
+            "name": "fixture-doctor",
+            "inputs": common_inputs + ["--as-of", "--max-source-age-days", "--out-md", "--out-json"],
+            "outputs": ["demo/fixture_doctor.md", "demo/fixture_doctor.json"],
+            "exit_codes": report_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli fixture-doctor --root .",
+        },
+        {
+            "name": "static-dashboard",
+            "inputs": common_inputs + ["--out-html"],
+            "outputs": ["demo/static_dashboard.html"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli static-dashboard --root .",
+        },
+        {
+            "name": "case-gallery",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/case_gallery.md", "demo/case_gallery.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli case-gallery --root .",
+        },
+        {
+            "name": "visual-receipt",
+            "inputs": ["--root", "--format", "--out"],
+            "outputs": ["demo/visual_receipt.svg"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli visual-receipt --root .",
+        },
+        {
+            "name": "reviewer-scorecard",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/reviewer_scorecard.md", "demo/reviewer_scorecard.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli reviewer-scorecard --root .",
+        },
+        {
+            "name": "selfcheck",
+            "inputs": ["--root"],
+            "outputs": ["stdout JSON"],
+            "exit_codes": report_exit,
+            "regeneration_command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .",
+        },
+        {
+            "name": "public-scan",
+            "inputs": ["--root"],
+            "outputs": ["stdout JSON"],
+            "exit_codes": report_exit,
+            "regeneration_command": "PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .",
+        },
+        {
+            "name": "release-manifest",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/release_manifest.md", "demo/release_manifest.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-manifest --root .",
+        },
+        {
+            "name": "maturity-report",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/maturity_report.md", "demo/maturity_report.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli maturity-report --root .",
+        },
+        {
+            "name": "bundle-export",
+            "inputs": ["--root", "--out-dir"],
+            "outputs": ["demo/bundle_export/manifest.md", "demo/bundle_export/manifest.json", "demo/bundle_export/artifacts/"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root .",
+        },
+        {
+            "name": "asset-health",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/asset_health.md", "demo/asset_health.json"],
+            "exit_codes": report_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli asset-health --root .",
+        },
+        {
+            "name": "artifact-catalog",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/artifact_catalog.md", "demo/artifact_catalog.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli artifact-catalog --root .",
+        },
+        {
+            "name": "command-matrix",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/command_matrix.md", "demo/command_matrix.json"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli command-matrix --root .",
+        },
+        {
+            "name": "release-checklist",
+            "inputs": ["--root", "--out-md", "--out-json"],
+            "outputs": ["demo/release_checklist.md", "demo/release_checklist.json"],
+            "exit_codes": report_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-checklist --root .",
+        },
+        {
+            "name": "readme-snippet",
+            "inputs": ["--root", "--out-md"],
+            "outputs": ["demo/readme_snippet.md"],
+            "exit_codes": static_exit,
+            "regeneration_command": "PYTHONPATH=src python -m fund_exposure_lookthrough.cli readme-snippet --root .",
+        },
     ]
 
 
@@ -697,6 +905,154 @@ def _readme_snippet_markdown(payload: dict[str, Any]) -> str:
     if missing:
         lines.extend(["", "Artifacts not present yet:"])
         lines.extend(f"- `{rel}`" for rel in missing)
+    return "\n".join(lines) + "\n"
+
+
+def _demo_artifacts(root: Path) -> list[str]:
+    demo = root / "demo"
+    if not demo.exists():
+        return []
+    return [
+        str(path.relative_to(root))
+        for path in sorted(demo.rglob("*"))
+        if path.is_file() and "bundle_export" not in path.relative_to(demo).parts
+    ]
+
+
+def _catalog_artifact_row(root: Path, rel: str) -> dict[str, Any]:
+    path = root / rel
+    return {
+        "path": rel,
+        "type": _artifact_type(path),
+        "bytes": path.stat().st_size,
+        "sha256": _file_digest(path),
+        "regeneration_command": _regeneration_command_for(rel),
+    }
+
+
+def _artifact_type(path: Path) -> str:
+    suffix = path.suffix.lower()
+    return {
+        ".json": "json",
+        ".md": "markdown",
+        ".html": "html",
+        ".svg": "svg",
+        ".csv": "csv",
+        ".txt": "text",
+    }.get(suffix, suffix.lstrip(".") or "file")
+
+
+def _regeneration_command_for(rel: str) -> str:
+    if rel.startswith("demo/bundle_export/"):
+        return "PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root ."
+    for spec in _command_specs():
+        if rel in spec["outputs"]:
+            return spec["regeneration_command"]
+    return "Regenerate the owning demo command, then run artifact-catalog."
+
+
+def _artifact_catalog_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# Artifact Catalog",
+        "",
+        DISCLAIMER,
+        "",
+        f"Artifacts cataloged: {payload['artifact_count']}",
+        "",
+        "| Artifact | Type | Bytes | SHA-256 | Regeneration command |",
+        "| --- | --- | ---: | --- | --- |",
+    ]
+    for row in payload["artifacts"]:
+        lines.append(
+            f"| `{row['path']}` | {row['type']} | {row['bytes']} | `{row['sha256']}` | `{row['regeneration_command']}` |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _command_matrix_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# Command Matrix",
+        "",
+        DISCLAIMER,
+        "",
+        f"Commands documented: {payload['command_count']}",
+        "",
+        "| Command | Inputs | Outputs | Exit-code behavior |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in payload["commands"]:
+        inputs = ", ".join(f"`{item}`" for item in row["inputs"])
+        outputs = ", ".join(f"`{item}`" for item in row["outputs"])
+        lines.append(f"| `{row['name']}` | {inputs} | {outputs} | {row['exit_codes']} |")
+    return "\n".join(lines) + "\n"
+
+
+def _release_checks(root: Path) -> list[dict[str, Any]]:
+    tests_ready = (root / "tests").exists()
+    package_ready = _pyproject_has_no_runtime_deps(root / "pyproject.toml") and (root / "build_backend.py").exists()
+    wheel_smoke_ready = (root / "build_backend.py").exists() and (root / "src" / "fund_exposure_lookthrough" / "__init__.py").exists()
+    public_scan_ready = not public_hygiene_findings(root)
+    no_advice_ready = (
+        "not investment advice" in DISCLAIMER.lower()
+        and _file_contains(root / "README.md", "does not fetch live data")
+        and _file_contains(root / "README.md", "connect to brokers")
+        and _file_contains(root / "README.md", "recommend buys")
+    )
+    no_workflows_ready = not (root / ".github" / "workflows").exists()
+    return [
+        {
+            "name": "tests",
+            "ready": tests_ready,
+            "owner_action": "Run `python -m pytest -q` from the source checkout.",
+            "evidence": ["tests/"] if tests_ready else [],
+        },
+        {
+            "name": "package",
+            "ready": package_ready,
+            "owner_action": "Build with the local zero-dependency backend and inspect metadata.",
+            "evidence": _existing(root, ["pyproject.toml", "build_backend.py"]),
+        },
+        {
+            "name": "wheel-smoke",
+            "ready": wheel_smoke_ready,
+            "owner_action": "Install the built wheel in a clean environment and run `fund-exposure-lookthrough --version` plus `selfcheck --root .`.",
+            "evidence": _existing(root, ["build_backend.py", "src/fund_exposure_lookthrough/__init__.py"]),
+        },
+        {
+            "name": "public-scan",
+            "ready": public_scan_ready,
+            "owner_action": "Run `PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .`.",
+            "evidence": ["clean public hygiene scan"] if public_scan_ready else public_hygiene_findings(root),
+        },
+        {
+            "name": "no-advice-boundaries",
+            "ready": no_advice_ready,
+            "owner_action": "Confirm docs and generated reports preserve static research-only language.",
+            "evidence": ["render.DISCLAIMER", "README.md"] if no_advice_ready else [],
+        },
+        {
+            "name": "no-workflows",
+            "ready": no_workflows_ready,
+            "owner_action": "Confirm no workflow automation files are present.",
+            "evidence": ["no .github/workflows directory"] if no_workflows_ready else [],
+        },
+    ]
+
+
+def _release_checklist_markdown(payload: dict[str, Any]) -> str:
+    lines = [
+        "# Release Checklist",
+        "",
+        DISCLAIMER,
+        "",
+        f"Status: {'ready' if payload['ok'] else 'review required'}",
+        "",
+        "| Area | Ready | Owner action | Evidence |",
+        "| --- | --- | --- | --- |",
+    ]
+    for row in payload["checks"]:
+        evidence = ", ".join(row["evidence"]) if row["evidence"] else "missing"
+        lines.append(f"| {row['name']} | {'yes' if row['ready'] else 'no'} | {row['owner_action']} | {evidence} |")
     return "\n".join(lines) + "\n"
 
 

@@ -156,5 +156,5 @@
   ],
   "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
   "tool": "fund-exposure-lookthrough",
-  "version": "0.4.0"
+  "version": "0.5.0"
 }

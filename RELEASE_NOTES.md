@@ -1,5 +1,15 @@
 # Release Notes
 
+## 0.5.0
+
+Adds an audit and reproducibility layer for release review:
+
+- `artifact-catalog` catalogs existing demo artifacts with file type, byte size, SHA-256 hash, and regeneration command.
+- `command-matrix` writes Markdown and JSON coverage of every CLI route, including inputs, outputs, and exit-code behavior.
+- `release-checklist` writes a release owner checklist for tests, package review, wheel smoke, public scan, no-advice boundaries, and workflow absence.
+
+The release also updates generated demo outputs, tests, README guidance, skill guidance, package version metadata, and the local build backend. It preserves zero runtime dependencies, no workflow files, no live data fetching, no broker connectivity, and no financial advice surface.
+
 ## 0.4.0
 
 Adds an operator workflow layer for portable public review:

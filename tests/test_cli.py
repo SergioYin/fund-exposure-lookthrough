@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from fund_exposure_lookthrough.cli import _command_names, build_parser
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -30,8 +32,17 @@ def copy_project_inputs(tmp_path: Path) -> None:
     shutil.copy(ROOT / "LICENSE", tmp_path / "LICENSE")
     shutil.copy(ROOT / "CHANGELOG.md", tmp_path / "CHANGELOG.md")
     shutil.copy(ROOT / "RELEASE_NOTES.md", tmp_path / "RELEASE_NOTES.md")
+    shutil.copy(ROOT / "build_backend.py", tmp_path / "build_backend.py")
     shutil.copytree(ROOT / "src", tmp_path / "src", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     shutil.copytree(ROOT / "skills", tmp_path / "skills")
+    shutil.copytree(ROOT / "tests", tmp_path / "tests", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+
+
+def test_command_matrix_registry_matches_argparse_routes():
+    parser = build_parser()
+    subparsers_action = next(action for action in parser._actions if getattr(action, "dest", None) == "command")
+
+    assert set(_command_names()) == set(subparsers_action.choices)
 
 
 def test_cli_routes_generate_expected_artifacts(tmp_path):
@@ -48,6 +59,9 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         ("visual-receipt",),
         ("release-manifest",),
         ("maturity-report",),
+        ("artifact-catalog",),
+        ("command-matrix",),
+        ("release-checklist",),
         ("readme-snippet",),
         ("asset-health",),
         ("bundle-export",),
@@ -78,6 +92,12 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
         "demo/release_manifest.json",
         "demo/maturity_report.md",
         "demo/maturity_report.json",
+        "demo/artifact_catalog.md",
+        "demo/artifact_catalog.json",
+        "demo/command_matrix.md",
+        "demo/command_matrix.json",
+        "demo/release_checklist.md",
+        "demo/release_checklist.json",
         "demo/readme_snippet.md",
         "demo/bundle_export/manifest.md",
         "demo/bundle_export/manifest.json",
@@ -110,10 +130,24 @@ def test_cli_routes_generate_expected_artifacts(tmp_path):
 
     health = json.loads((tmp_path / "demo/asset_health.json").read_text(encoding="utf-8"))
     assert health["ok"] is True
-    assert {row["name"] for row in health["commands"]} >= {"bundle-export", "asset-health", "readme-snippet"}
+    assert {row["name"] for row in health["commands"]} >= {"bundle-export", "asset-health", "artifact-catalog", "command-matrix", "release-checklist", "readme-snippet"}
     assert all(health["package_data"].values())
     assert all(health["safety_boundaries"].values())
     assert "Quickstart Demo" in (tmp_path / "demo/readme_snippet.md").read_text(encoding="utf-8")
+
+    catalog = json.loads((tmp_path / "demo/artifact_catalog.json").read_text(encoding="utf-8"))
+    assert catalog["artifact_count"] >= 20
+    assert {"path", "type", "bytes", "sha256", "regeneration_command"} <= set(catalog["artifacts"][0])
+    assert any(row["path"] == "demo/exposure_packet.json" for row in catalog["artifacts"])
+
+    matrix = json.loads((tmp_path / "demo/command_matrix.json").read_text(encoding="utf-8"))
+    assert matrix["command_count"] == len(matrix["commands"])
+    assert {row["name"] for row in matrix["commands"]} >= {"artifact-catalog", "command-matrix", "release-checklist"}
+    assert all(row["inputs"] and row["outputs"] and row["exit_codes"] for row in matrix["commands"])
+
+    checklist = json.loads((tmp_path / "demo/release_checklist.json").read_text(encoding="utf-8"))
+    assert checklist["ok"] is True
+    assert {row["name"] for row in checklist["checks"]} >= {"tests", "package", "wheel-smoke", "public-scan", "no-advice-boundaries"}
 
 
 def test_selfcheck_and_safety_language(tmp_path):
@@ -167,22 +201,28 @@ def test_deterministic_outputs_for_packet(tmp_path):
 
 def test_deterministic_showcase_outputs(tmp_path):
     copy_project_inputs(tmp_path)
-    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("readme-snippet",), ("bundle-export",)]:
+    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("command-matrix",), ("release-checklist",), ("readme-snippet",), ("artifact-catalog",), ("bundle-export",)]:
         first = run_cli(tmp_path, *command, "--root", ".")
         assert first.returncode == 0, first.stderr
     first_gallery = (tmp_path / "demo/case_gallery.json").read_bytes()
     first_scorecard = (tmp_path / "demo/reviewer_scorecard.json").read_bytes()
     first_receipt = (tmp_path / "demo/visual_receipt.svg").read_bytes()
+    first_catalog = (tmp_path / "demo/artifact_catalog.json").read_bytes()
+    first_matrix = (tmp_path / "demo/command_matrix.json").read_bytes()
+    first_checklist = (tmp_path / "demo/release_checklist.json").read_bytes()
     first_snippet = (tmp_path / "demo/readme_snippet.md").read_bytes()
     first_bundle = (tmp_path / "demo/bundle_export/manifest.json").read_bytes()
 
-    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("readme-snippet",), ("bundle-export",)]:
+    for command in [("case-gallery",), ("reviewer-scorecard",), ("visual-receipt",), ("command-matrix",), ("release-checklist",), ("readme-snippet",), ("artifact-catalog",), ("bundle-export",)]:
         second = run_cli(tmp_path, *command, "--root", ".")
         assert second.returncode == 0, second.stderr
 
     assert (tmp_path / "demo/case_gallery.json").read_bytes() == first_gallery
     assert (tmp_path / "demo/reviewer_scorecard.json").read_bytes() == first_scorecard
     assert (tmp_path / "demo/visual_receipt.svg").read_bytes() == first_receipt
+    assert (tmp_path / "demo/artifact_catalog.json").read_bytes() == first_catalog
+    assert (tmp_path / "demo/command_matrix.json").read_bytes() == first_matrix
+    assert (tmp_path / "demo/release_checklist.json").read_bytes() == first_checklist
     assert (tmp_path / "demo/readme_snippet.md").read_bytes() == first_snippet
     assert (tmp_path / "demo/bundle_export/manifest.json").read_bytes() == first_bundle
 

@@ -1,0 +1,59 @@
+{
+  "checks": [
+    {
+      "evidence": [
+        "tests/"
+      ],
+      "name": "tests",
+      "owner_action": "Run `python -m pytest -q` from the source checkout.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "pyproject.toml",
+        "build_backend.py"
+      ],
+      "name": "package",
+      "owner_action": "Build with the local zero-dependency backend and inspect metadata.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "build_backend.py",
+        "src/fund_exposure_lookthrough/__init__.py"
+      ],
+      "name": "wheel-smoke",
+      "owner_action": "Install the built wheel in a clean environment and run `fund-exposure-lookthrough --version` plus `selfcheck --root .`.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "clean public hygiene scan"
+      ],
+      "name": "public-scan",
+      "owner_action": "Run `PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .`.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "render.DISCLAIMER",
+        "README.md"
+      ],
+      "name": "no-advice-boundaries",
+      "owner_action": "Confirm docs and generated reports preserve static research-only language.",
+      "ready": true
+    },
+    {
+      "evidence": [
+        "no .github/workflows directory"
+      ],
+      "name": "no-workflows",
+      "owner_action": "Confirm no workflow automation files are present.",
+      "ready": true
+    }
+  ],
+  "ok": true,
+  "project": "fund-exposure-lookthrough",
+  "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
+  "version": "0.5.0"
+}

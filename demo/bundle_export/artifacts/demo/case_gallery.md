@@ -2,7 +2,7 @@
 
 Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.
 
-Version: 0.4.0
+Version: 0.5.0
 
 | Case | Portfolio | Funds | Assets | Total exposure | Warnings |
 | --- | --- | ---: | ---: | ---: | ---: |

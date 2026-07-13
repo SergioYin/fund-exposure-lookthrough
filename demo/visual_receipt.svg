@@ -14,18 +14,18 @@
   <rect class="bg" width="680" height="456"/>
   <rect class="panel" x="18" y="18" width="644" height="420" rx="6"/>
   <text x="34" y="52" class="title">Public Showcase Receipt</text>
-  <text x="34" y="76" class="meta">fund-exposure-lookthrough 0.4.0 | static demo artifacts | no live data</text>
+  <text x="34" y="76" class="meta">fund-exposure-lookthrough 0.5.0 | static demo artifacts | no live data</text>
   <text x="34" y="102" class="head">Route</text>
   <text x="340" y="102" class="head">SHA-256 prefix</text>
   <text x="520" y="102" class="head">Status</text>
   <text x="34" y="118" class="route">demo/exposure_packet.md</text><text x="340" y="118" class="hash">cf497f898c35ab04</text><text x="520" y="118" class="status">ready</text>
-  <text x="34" y="152" class="route">demo/exposure_packet.json</text><text x="340" y="152" class="hash">42404a389791cd32</text><text x="520" y="152" class="status">ready</text>
+  <text x="34" y="152" class="route">demo/exposure_packet.json</text><text x="340" y="152" class="hash">62e62ce14588903a</text><text x="520" y="152" class="status">ready</text>
   <text x="34" y="186" class="route">demo/history_comparison.md</text><text x="340" y="186" class="hash">deff98f1c65ba8fb</text><text x="520" y="186" class="status">ready</text>
   <text x="34" y="220" class="route">demo/history_comparison.json</text><text x="340" y="220" class="hash">18da1501113fd0d1</text><text x="520" y="220" class="status">ready</text>
-  <text x="34" y="254" class="route">demo/case_gallery.md</text><text x="340" y="254" class="hash">c517820a642011d3</text><text x="520" y="254" class="status">ready</text>
-  <text x="34" y="288" class="route">demo/case_gallery.json</text><text x="340" y="288" class="hash">1a1d6a88900fc7b0</text><text x="520" y="288" class="status">ready</text>
+  <text x="34" y="254" class="route">demo/case_gallery.md</text><text x="340" y="254" class="hash">c21a7cc813780796</text><text x="520" y="254" class="status">ready</text>
+  <text x="34" y="288" class="route">demo/case_gallery.json</text><text x="340" y="288" class="hash">340a8454bf7dc8dc</text><text x="520" y="288" class="status">ready</text>
   <text x="34" y="322" class="route">demo/reviewer_scorecard.md</text><text x="340" y="322" class="hash">d22fdfb70563bda0</text><text x="520" y="322" class="status">ready</text>
-  <text x="34" y="356" class="route">demo/reviewer_scorecard.json</text><text x="340" y="356" class="hash">0943517965bab9fa</text><text x="520" y="356" class="status">ready</text>
+  <text x="34" y="356" class="route">demo/reviewer_scorecard.json</text><text x="340" y="356" class="hash">a915183e4ad14346</text><text x="520" y="356" class="status">ready</text>
   <text x="34" y="390" class="route">demo/static_dashboard.html</text><text x="340" y="390" class="hash">06ad0a9c3b7ba259</text><text x="520" y="390" class="status">ready</text>
   <text x="34" y="428" class="meta">Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.</text>
 </svg>

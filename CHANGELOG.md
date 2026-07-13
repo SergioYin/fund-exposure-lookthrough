@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 - 2026-07-14
+
+- Added `artifact-catalog` for deterministic demo artifact type, byte, SHA-256, and regeneration-command inventory.
+- Added `command-matrix` for Markdown/JSON CLI route coverage across inputs, outputs, and exit-code behavior.
+- Added `release-checklist` for release owner checks covering tests, package, wheel smoke, public scan, no-advice boundaries, and workflow absence.
+- Updated docs, tests, demo outputs, package metadata, and build backend version for the audit/reproducibility layer.
+- Preserved zero runtime dependencies, no workflow automation, no live data fetching, and no advice surface.
+
 ## 0.4.0 - 2026-07-14
 
 - Added `bundle-export` for deterministic portable demo bundles with copied artifacts and manifests.

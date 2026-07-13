@@ -41,9 +41,9 @@ def test_build_backend_version_matches_package_version():
     backend_text = (ROOT / "build_backend.py").read_text(encoding="utf-8")
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
 
-    assert '__version__ = "0.4.0"' in init_text
-    assert 'VERSION = "0.4.0"' in backend_text
-    assert 'version = "0.4.0"' in pyproject
+    assert '__version__ = "0.5.0"' in init_text
+    assert 'VERSION = "0.5.0"' in backend_text
+    assert 'version = "0.5.0"' in pyproject
 
 
 def test_public_hygiene_scan_detects_private_terms(tmp_path):

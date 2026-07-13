@@ -1,5 +1,5 @@
 {
-  "artifact_count": 23,
+  "artifact_count": 29,
   "artifacts": [
     {
       "bundle_path": "artifacts/demo/exposure_packet.md",
@@ -11,7 +11,7 @@
       "bundle_path": "artifacts/demo/exposure_packet.json",
       "exists": true,
       "route": "demo/exposure_packet.json",
-      "sha256": "42404a389791cd320425c6ca8ccb17e92923bc7ce1a89db19082350ab3829aa7"
+      "sha256": "62e62ce14588903a48576f4519d40bcd25ca6ce9658f3663d5284806bb6be5c6"
     },
     {
       "bundle_path": "artifacts/demo/history_comparison.md",
@@ -59,7 +59,7 @@
       "bundle_path": "artifacts/demo/fixture_doctor.json",
       "exists": true,
       "route": "demo/fixture_doctor.json",
-      "sha256": "1d1a40c9da2d06a2ffee5c5c8ccdeb574d22863155f9a063b5e85b47bc2b2e58"
+      "sha256": "a2733f75de842478ccb243d0aa25b40e891cbc2a8fbca71850c3af25947e7b92"
     },
     {
       "bundle_path": "artifacts/demo/static_dashboard.html",
@@ -71,13 +71,13 @@
       "bundle_path": "artifacts/demo/case_gallery.md",
       "exists": true,
       "route": "demo/case_gallery.md",
-      "sha256": "c517820a642011d33afd8f5b1b46d2c6b68e30f3bf5833c74eb94d5536648fbc"
+      "sha256": "c21a7cc81378079662ccb091836a9b4e7bb01541c11aaf7948f0eae2def5ee10"
     },
     {
       "bundle_path": "artifacts/demo/case_gallery.json",
       "exists": true,
       "route": "demo/case_gallery.json",
-      "sha256": "1a1d6a88900fc7b0390e8738187ff6c232b992c2f7b8ccd3a0c5e0fdc19bc355"
+      "sha256": "340a8454bf7dc8dc3dce2cace49f6025e1a9eec21eaa6aa081207f86ee4e7d1a"
     },
     {
       "bundle_path": "artifacts/demo/reviewer_scorecard.md",
@@ -89,25 +89,25 @@
       "bundle_path": "artifacts/demo/reviewer_scorecard.json",
       "exists": true,
       "route": "demo/reviewer_scorecard.json",
-      "sha256": "0943517965bab9fa5f1a479a2694874ff9ea2321d08dd81117f8d05d57b1c978"
+      "sha256": "a915183e4ad14346173fa75196fdae1ab2f154a310a5147012c1977587cc71f2"
     },
     {
       "bundle_path": "artifacts/demo/visual_receipt.svg",
       "exists": true,
       "route": "demo/visual_receipt.svg",
-      "sha256": "cbdba646eee93157428083f2b0e4129870193a92c1f78f285eae75ca447b53d5"
+      "sha256": "31370b1d5f5040c10f8f5b2b31c1c64384b3a9e4b56846a5d5310eb1516bcad8"
     },
     {
       "bundle_path": "artifacts/demo/release_manifest.md",
       "exists": true,
       "route": "demo/release_manifest.md",
-      "sha256": "b69c2c77ed46d94d5f7f8d8759da56de3305fa5cd373369cb6fabe9e844313f3"
+      "sha256": "77dd5f7020eb59e20d346730827c596c7b975243fb8b32efd1877d666156c02f"
     },
     {
       "bundle_path": "artifacts/demo/release_manifest.json",
       "exists": true,
       "route": "demo/release_manifest.json",
-      "sha256": "3e88d1428e152e63e8b7c98db00fea3fbbb6e02c274370a50b288445b50a3c0a"
+      "sha256": "83df2864ea6002b116c8425699251d7b8e497d18017fd30f519f31338e5fc1f9"
     },
     {
       "bundle_path": "artifacts/demo/maturity_report.md",
@@ -125,13 +125,49 @@
       "bundle_path": "artifacts/demo/asset_health.md",
       "exists": true,
       "route": "demo/asset_health.md",
-      "sha256": "b6352e26345c451fff8b949d3954b17c9d4b783a02b4d6eb51d78f3234347d39"
+      "sha256": "61284cb5ee5363f5ffaa4c8b87bcc54677a1782e4f73bbc3ae13c44daa5017f0"
     },
     {
       "bundle_path": "artifacts/demo/asset_health.json",
       "exists": true,
       "route": "demo/asset_health.json",
-      "sha256": "5c0279fd7e4d86f8922e092c4cd0b309334a3a01b76994edf613278c4964ad31"
+      "sha256": "e79dfc0f577effd0d199d12bd7c0ccd7687418c53f2cba8126d0d77edf9d21db"
+    },
+    {
+      "bundle_path": "artifacts/demo/artifact_catalog.md",
+      "exists": true,
+      "route": "demo/artifact_catalog.md",
+      "sha256": "2b47586eb85c3c18d111fb2f5be48b8b27e07a6937c9a4dfaffa7118f53c4bcd"
+    },
+    {
+      "bundle_path": "artifacts/demo/artifact_catalog.json",
+      "exists": true,
+      "route": "demo/artifact_catalog.json",
+      "sha256": "1232e03c77ffeb7a644500ec7c60ace7be2ee0fcbc4bae43b3acdb90b5d637ef"
+    },
+    {
+      "bundle_path": "artifacts/demo/command_matrix.md",
+      "exists": true,
+      "route": "demo/command_matrix.md",
+      "sha256": "350320658575ae039ae27d35b682353b9ce923ee036230b60389ed985a3f546f"
+    },
+    {
+      "bundle_path": "artifacts/demo/command_matrix.json",
+      "exists": true,
+      "route": "demo/command_matrix.json",
+      "sha256": "5be2f085e4e257e2411e775e3f65f695da7d7b7b293fdf88714fbc28668a626c"
+    },
+    {
+      "bundle_path": "artifacts/demo/release_checklist.md",
+      "exists": true,
+      "route": "demo/release_checklist.md",
+      "sha256": "f94b18d0068c95cc5bd7d5bcdea8217bf4bb69714a13f87338c8897787176f30"
+    },
+    {
+      "bundle_path": "artifacts/demo/release_checklist.json",
+      "exists": true,
+      "route": "demo/release_checklist.json",
+      "sha256": "6c1ab71db57cd04594343426b3b97b37434b09ade339f745a293b15bb06d88da"
     },
     {
       "bundle_path": "artifacts/demo/readme_snippet.md",
@@ -143,5 +179,5 @@
   "missing": [],
   "project": "fund-exposure-lookthrough",
   "safety": "Research use only. This static report is not investment advice, does not recommend buys, sells, holds, target allocations, or trades, and uses only user-supplied fixture data.",
-  "version": "0.4.0"
+  "version": "0.5.0"
 }

@@ -19,7 +19,10 @@ PYTHONPATH=src python -m fund_exposure_lookthrough.cli case-gallery --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli reviewer-scorecard --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli visual-receipt --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli readme-snippet --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli command-matrix --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli release-checklist --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli asset-health --root .
+PYTHONPATH=src python -m fund_exposure_lookthrough.cli artifact-catalog --root .
 PYTHONPATH=src python -m fund_exposure_lookthrough.cli bundle-export --root .
 PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli public-scan --root .
 PYTHONPATH=src python -B -m fund_exposure_lookthrough.cli selfcheck --root .
@@ -55,6 +58,9 @@ python -m fund_exposure_lookthrough.cli build-packet --root .
 - `demo/visual_receipt.svg`
 - `demo/release_manifest.md` and `demo/release_manifest.json`
 - `demo/maturity_report.md` and `demo/maturity_report.json`
+- `demo/artifact_catalog.md` and `demo/artifact_catalog.json`
+- `demo/command_matrix.md` and `demo/command_matrix.json`
+- `demo/release_checklist.md` and `demo/release_checklist.json`
 - `demo/readme_snippet.md`
 - `demo/asset_health.md` and `demo/asset_health.json`
 - `demo/bundle_export/manifest.md`, `demo/bundle_export/manifest.json`, and copied demo artifacts under `demo/bundle_export/artifacts/`
@@ -88,6 +94,9 @@ The default `--as-of 2026-07-14` keeps bundled demo outputs stable. Override it 
 ## Operator Workflow
 
 - `asset-health` writes Markdown and JSON status for CLI command coverage, demo artifact presence, packaged CSV data, and static safety boundaries.
+- `artifact-catalog` catalogs every existing file under `demo/` except its own outputs, including artifact type, byte size, SHA-256 hash, and regeneration command.
+- `command-matrix` writes Markdown and JSON route coverage for CLI inputs, outputs, and exit-code behavior.
+- `release-checklist` writes a release owner checklist combining tests, package review, wheel smoke expectations, public scan, no-advice boundaries, and workflow absence.
 - `readme-snippet` writes a concise Markdown quickstart/demo block based on artifacts currently present in `demo/`.
 - `bundle-export` copies selected demo artifacts into `demo/bundle_export/artifacts/` and writes deterministic Markdown/JSON manifests for portable review.
 
